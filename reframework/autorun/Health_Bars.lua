@@ -64,7 +64,7 @@ local function main_loop()
 	if not cached_config.enabled then
 		return;
 	end
-	
+
 	customization_menu.status = "OK";
 
 	singletons.init();
@@ -81,8 +81,18 @@ end
 --------------------------RE_IMGUI---------------------------
 -- #region
 re.on_draw_ui(function()
+	local changed = false;
+	local cached_config = config.current_config;
+
 	if imgui.button("Health Bars v" .. config.current_config.version) then
 		customization_menu.is_opened = not customization_menu.is_opened;
+	end
+
+	imgui.same_line();
+
+	changed, cached_config.enabled = imgui.checkbox("Enabled", cached_config.enabled);
+	if changed then
+		config.save();
 	end
 end);
 
