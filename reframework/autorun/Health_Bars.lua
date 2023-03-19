@@ -64,6 +64,8 @@ local function main_loop()
 	if not cached_config.enabled then
 		return;
 	end
+	
+	customization_menu.status = "OK";
 
 	singletons.init();
 	screen.update_window_size();
