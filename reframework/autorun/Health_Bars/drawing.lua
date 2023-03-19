@@ -35,7 +35,7 @@ local reframework = reframework;
 this.font = nil;
 
 function this.init_font()
-	this.font = d2d.Font.new("Tahoma", 40, false, false);
+	this.font = d2d.Font.new("Consolas", 13, true, false);
 end
 
 function this.argb_color_to_abgr_color(argb_color)
