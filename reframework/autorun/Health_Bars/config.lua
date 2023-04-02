@@ -54,8 +54,43 @@ function this.init()
 			z = 0
 		},
 
+		health_value_label = {
+			visibility = true,
+
+			settings = {
+				right_alignment_shift = 11
+			},
+
+			include = {
+				current_value = true,
+				max_value = true
+			},
+
+			text_format = "%s", -- current_health/max_health
+
+			offset = {
+				x = -15,
+				y = 0
+			},
+			
+			color = 0xB9F7B9B9,
+
+			shadow = {
+				visibility = true,
+				offset = {
+					x = 1,
+					y = 1
+				},
+				color = 0xFF000000
+			}
+		},
+
 		health_bar = {
 			visibility = true,
+
+			settings = {
+				fill_direction = "Left to Right"
+			},
 
 			offset = {
 				x = -75,
@@ -69,15 +104,15 @@ function this.init()
 
 			outline = {
 				visibility = true,
-				thickness = 2,
+				thickness = 1.5,
 				offset = 0,
 				style = "Center"
 			},
 
 			colors = {
-				foreground = 0xB974A652,
+				foreground = 0xB9A1FFBA,
 				background = 0xB9000000,
-				outline = 0xC0000000
+				outline = 0xC0918E89
 			}
 		}
 	};
