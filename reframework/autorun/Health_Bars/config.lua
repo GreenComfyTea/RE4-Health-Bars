@@ -144,7 +144,7 @@ function this.init_module()
 
 	this.init();
 	this.load();
-	this.current_config.version = "1.0";
+	this.current_config.version = "1.1";
 end
 
 return this;
