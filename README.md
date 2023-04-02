@@ -2,20 +2,22 @@
 
 Mod for Resident Evil 4 Remake that draws health bars on top of enemies' heads.
 
-![dmg_numbers_2](https://user-images.githubusercontent.com/30152047/218811974-50913460-9de9-4cac-9762-8ef3d455172f.png)
+![health_bars_2](https://user-images.githubusercontent.com/30152047/226180919-2ddaacc2-f8c7-4688-8ec0-1958da87f91a.png)
+
 
 # Links
-* **[Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/2155)**
+* **[Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84)**
 
 # Requirements
-1. [REFramework](https://nexusmods.com/monsterhunterrise/mods/26) (v1.3.7 or above);
+1. [REFramework](https://www.nexusmods.com/residentevil42023/mods/12) (v1.4.1 or above);
+2. [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83) (v0.4.0 or above).
 
 # How to install:
-1. Install [REFramework](https://nexusmods.com/monsterhunterrise/mods/26);
+1. Install [REFramework](https://www.nexusmods.com/residentevil42023/mods/12);
 3. Download the mod:
-    * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/2155);
-    * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/MHR-Adjustable-Damage-Number-Size) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26). Use with caution!
-4. Extract the mod from the archive and place it in MonsterHunterRise folder.
+    * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84);
+    * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/RE4-Health-Bars) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/residentevil42023/mods/12). Use with caution!
+4. Extract the mod from the archive and place it in Resident Evil 4 folder. Final path should look like this: `/RESIDENT EVIL 4  BIOHAZARD RE4/reframework/autorun/Health_Bars.lua`
 
 # Credits
 **GreenComfyTea** - creator of the mod and it's main contributor.
