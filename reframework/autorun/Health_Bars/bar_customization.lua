@@ -35,6 +35,7 @@ local Vector2f = Vector2f;
 local reframework = reframework;
 
 local outline_styles = {"Inside", "Center", "Outside"};
+local directions = {"Left to Right", "Right to Left", "Top to Bottom", "Bottom to Top"};
 
 function this.draw(bar_name, bar)
 	if bar == nil then
@@ -52,6 +53,19 @@ function this.draw(bar_name, bar)
 	if imgui.tree_node(bar_name) then
 		changed, bar.visibility = imgui.checkbox("Visible" , bar.visibility);
 		bar_changed = bar_changed or changed;
+
+		if imgui.tree_node("Settings") then
+			local fill_direction_index = utils.table_find_index(directions, bar.settings.fill_direction);
+			changed, fill_direction_index = imgui.combo("Fill Type", fill_direction_index, directions);
+
+			bar_changed = bar_changed or changed;
+
+			if changed then
+				bar.settings.fill_direction = directions[fill_direction_index];
+			end
+
+			imgui.tree_pop();
+		end
 
 		if imgui.tree_node("Offset") then
 			changed, bar.offset.x = imgui.drag_float("X",
