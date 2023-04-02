@@ -33,6 +33,7 @@ local config = require("Health_Bars.config");
 local screen = require("Health_Bars.screen");
 local singletons = require("Health_Bars.singletons");
 
+local label_customization = require("Health_Bars.label_customization");
 local bar_customization = require("Health_Bars.bar_customization");
 local customization_menu = require("Health_Bars.customization_menu");
 
@@ -46,6 +47,7 @@ config.init_module();
 screen.init_module();
 singletons.init_module();
 
+label_customization.init_module();
 bar_customization.init_module();
 customization_menu.init_module();
 

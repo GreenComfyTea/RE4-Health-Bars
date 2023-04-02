@@ -2,6 +2,7 @@ local this = {};
 
 local utils;
 local config;
+local label_customization;
 local bar_customization;
 
 local sdk = sdk;
@@ -117,7 +118,7 @@ function this.draw()
 
 		imgui.tree_pop();
 	end
-
+	changed = label_customization.draw("Health Value Label", cached_config.health_value_label);
 	changed = bar_customization.draw("Health Bar", cached_config.health_bar);
 	config_changed = config_changed or changed;
 	
@@ -131,6 +132,7 @@ end
 function this.init_module()
 	utils = require("Health_Bars.utils");
 	config = require("Health_Bars.config");
+	label_customization = require("Health_Bars.label_customization");
 	bar_customization = require("Health_Bars.bar_customization");
 
 	this.init();
