@@ -73,7 +73,7 @@ local function main_loop()
 	screen.update_window_size();
 	enemy_handler.update_player_position();
 
-	enemy_handler.update_enemies();
+	--enemy_handler.update_enemies();
 	enemy_handler.draw_enemies();
 end
 
