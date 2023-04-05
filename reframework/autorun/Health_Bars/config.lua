@@ -98,7 +98,7 @@ function this.init()
 				y = 0
 			},
 			
-			color = 0xB9F2EEC2,
+			color = 0xB9FFF9B2,
 
 			shadow = {
 				visibility = true,
