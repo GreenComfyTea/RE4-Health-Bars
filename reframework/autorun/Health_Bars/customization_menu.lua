@@ -92,7 +92,7 @@ function this.draw()
 			cached_config.settings.render_during_cutscenes);
 		config_changed = config_changed or changed;
 
-		changed, cached_config.settings.render_when_hud_is_off = imgui.checkbox("Render when HUD is Off",
+		changed, cached_config.settings.render_when_hud_is_off = imgui.checkbox("Render when HUD is Disabled by Game",
 			cached_config.settings.render_when_hud_is_off);
 		config_changed = config_changed or changed;
 		
