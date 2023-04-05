@@ -1,4 +1,4 @@
-local label_customization = {};
+local this = {};
 
 local utils;
 local config;
@@ -33,13 +33,14 @@ local imgui = imgui;
 local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
+local os = os;
 
 local include_names = {
 	current_value = "Current Value",
 	max_value = "Max Value"
 };
 
-function label_customization.draw(label_name, label)
+function this.draw(label_name, label)
 	local label_changed = false;
 	local changed = false;
 
@@ -116,11 +117,11 @@ function label_customization.draw(label_name, label)
 	return label_changed;
 end
 
-function label_customization.init_module()
+function this.init_module()
 	utils = require("Health_Bars.utils");
 	config = require("Health_Bars.config");
 	screen = require("Health_Bars.screen");
 	customization_menu = require("Health_Bars.customization_menu");
 end
 
-return label_customization;
+return this;
