@@ -5,6 +5,8 @@ local singletons;
 local config;
 local drawing;
 local customization_menu;
+local player_handler;
+local time;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -34,9 +36,10 @@ local imgui = imgui;
 local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
+local os = os;
 
 this.enemy_list = {};
-this.player_position = Vector3f.new(0, 0, 0);
+this.enemy_body_list = {};
 
 local character_manager_type_def = sdk.find_type_definition("chainsaw.CharacterManager");
 local get_enemy_context_list_method = character_manager_type_def:get_method("get_EnemyContextList");
@@ -50,6 +53,9 @@ local enemy_base_context_type_def = sdk.find_type_definition("chainsaw.EnemyBase
 local get_position_method = enemy_base_context_type_def:get_method("get_Position");
 local get_has_ray_to_player_method = enemy_base_context_type_def:get_method("get_HasRayToPlayer");
 local get_hit_point_method = enemy_base_context_type_def:get_method("get_HitPoint");
+local can_valid_position_save_method = enemy_base_context_type_def:get_method("canValidPositionSave");
+local get_body_game_object_method = enemy_base_context_type_def:get_method("get_BodyGameObject");
+local release_method = enemy_base_context_type_def:get_method("release");
 
 local update_last_valid_position_method = enemy_base_context_type_def:get_method("updateLastValidPosition");
 
@@ -61,6 +67,10 @@ local get_is_live_method = hit_point_type_def:get_method("get_IsLive");
 local player_base_context_type_def = sdk.find_type_definition("chainsaw.PlayerBaseContext");
 local get_player_position_method = player_base_context_type_def:get_method("get_Position");
 
+local enemy_manager = sdk.find_type_definition("chainsaw.EnemyManager");
+local notify_hit_damage_method = enemy_manager:get_method("notifyHitDamage");
+local notify_dead_method = enemy_manager:get_method("notifyDead");
+
 function this.new(enemy_context)
 	local enemy = {};
 	enemy.enemy_context = enemy_context;
@@ -68,11 +78,18 @@ function this.new(enemy_context)
 	enemy.health = 0;
 	enemy.max_health = 100;
 	enemy.is_live = false;
+
 	enemy.has_ray_to_player = false;
+
 	enemy.position = Vector3f.new(0, 0, 0);
 	enemy.distance = 0;
 
+	enemy.last_reset_time = 0;
+
+	enemy.body = nil;
+
 	this.update_health(enemy);
+	this.update_body_game_object(enemy);
 
 	this.enemy_list[enemy_context] = enemy;
 
@@ -161,6 +178,26 @@ function this.update_has_ray_to_player(enemy)
 	enemy.has_ray_to_player = has_ray_to_player;
 end
 
+function this.update_last_reset_time(enemy)
+	if enemy == nil then
+		customization_menu.status = "No Enemy";
+		return;
+	end
+	
+	enemy.last_reset_time = time.total_elapsed_script_seconds;
+end
+
+function this.update_all_positions_and_rays()
+	for enemy_context, enemy in pairs(this.enemy_list) do
+		if time.total_elapsed_script_seconds - enemy.last_update_time > 1 then
+			this.enemy_list[enemy_context] = nil;
+		else
+			this.update_position(enemy);
+			this.update_has_ray_to_player(enemy);
+		end
+	end
+end
+
 function this.update_position(enemy)
 	if enemy == nil then
 		customization_menu.status = "No Enemy";
@@ -176,22 +213,95 @@ function this.update_position(enemy)
 
 	enemy.position = position;
 
-	if this.player_position == nil then
+	if player_handler.player.position == nil then
+		customization_menu.status = "No Player Position";
 		return;
 	end
 
-	enemy.distance = (this.player_position - position):length();
+	enemy.distance = (player_handler.player.position - position):length();
+end
+
+function this.update_body_game_object(enemy)
+	if enemy == nil then
+		customization_menu.status = "No Enemy";
+		return;
+	end
+
+	local body = get_body_game_object_method:call(enemy.enemy_context);
+	if body == nil then
+		customization_menu.status = "No Enemy Body Game Object";
+		return;
+	end
+
+	enemy.body = body;
+
+	this.enemy_body_list[body] = enemy;
 end
 
 function this.draw_enemies()
 	local cached_config = config.current_config;
 
+	if not cached_config.settings.render_during_cutscenes and player_handler.game.is_cutscene_playing then
+		return;
+	end
+
+	if not cached_config.settings.render_when_hud_is_off and player_handler.game.is_hud_off then
+		return;
+	end
+
+	if not player_handler.player.is_aiming then
+		if not cached_config.settings.render_when_normal then
+			return;
+		end
+	elseif not player_handler.player.is_using_scope then
+		if not cached_config.settings.render_when_aiming then
+			return;
+		end
+	else
+		if not cached_config.settings.render_when_using_scope then
+			return;
+		end
+	end
+
+	local max_distance = 0;
+	if player_handler.player.is_using_scope then
+		max_distance = cached_config.settings.scope_max_distance;
+	else
+		max_distance = cached_config.settings.max_distance;
+	end
+
+	if max_distance == 0 then
+		return;
+	end
+
 	for enemy_context, enemy in pairs(this.enemy_list) do
-		if cached_config.settings.max_distance == 0 then
-			break;
+		if enemy.distance > max_distance then
+			goto continue;
 		end
 
-		if  cached_config.settings.hide_if_dead and not enemy.is_live then
+		if not cached_config.settings.render_aim_target_enemy and enemy.body == player_handler.player.aim_target_body then
+			goto continue;
+		end
+
+		if not cached_config.settings.render_damaged_enemies and enemy.health ~= enemy.max_health then
+			if enemy.body == player_handler.player.aim_target_body then
+				if not cached_config.settings.render_aim_target_enemy then
+					goto continue;
+				end
+			else
+				goto continue;
+			end
+		end
+
+		if not cached_config.settings.render_everyone_else and enemy.body ~= player_handler.player.aim_target_body and enemy.health == enemy.max_health then
+			goto continue;
+		end
+
+		if cached_config.settings.hide_if_dead and not enemy.is_live then
+			goto continue;
+		end
+
+		if cached_config.settings.hide_if_full_health and enemy.health == enemy.max_health then
 			goto continue;
 		end
 
@@ -199,8 +309,14 @@ function this.draw_enemies()
 			goto continue;
 		end
 
-		if enemy.distance > cached_config.settings.max_distance then
-			goto continue;
+		if cached_config.settings.apply_time_duration_on_aiming
+		or cached_config.settings.apply_time_duration_on_aim_target
+		or cached_config.settings.apply_time_duration_on_using_scope
+		or cached_config.settings.apply_time_duration_on_damage_dealt then
+			if cached_config.settings.time_duration ~= 0
+			and time.total_elapsed_script_seconds - enemy.last_reset_time > cached_config.settings.time_duration then
+				goto continue;
+			end
 		end
 
 		local world_offset = Vector3f.new(cached_config.world_offset.x, cached_config.world_offset.y, cached_config.world_offset.z);
@@ -211,8 +327,14 @@ function this.draw_enemies()
 		end
 
 		local opacity_scale = 1;
-		if cached_config.settings.opacity_falloff then
-			opacity_scale = 1 - (enemy.distance / cached_config.settings.max_distance);
+		if player_handler.player.is_using_scope then
+			if cached_config.settings.scope_opacity_falloff then
+				opacity_scale = 1 - (enemy.distance / max_distance);
+			end
+		else
+			if cached_config.settings.opacity_falloff then
+				opacity_scale = 1 - (enemy.distance / max_distance);
+			end
 		end
 
 		local health_value_text = "";
@@ -241,30 +363,12 @@ function this.draw_enemies()
 		
 		::continue::
 	end
-
-	--drawing.draw_bar(cached_config.health_bar, {x = 150, y = 50}, 1, 0.5);
-end
-
-local enemies = {};
-
-function this.on_can_valid_position_save(enemy_context)
-	if enemy_context == nil then
-		customization_menu.status = "No Enemy Context";
-		return;
-	end
-
-	local enemy = this.get_enemy(enemy_context);
-
-	--enemies[enemy_context] = "On Can Valid Position Save";
-
-	--xy = utils.table_tostring(enemies);
-
-	this.update_position(enemy);
-	this.update_has_ray_to_player(enemy);
 end
 
 function this.on_notify_hit_damage(damage_info, enemy_context)
-	if enemy_context == nil then
+	local cached_config = config.current_config.settings;
+
+	if damage_info == nil then
 		customization_menu.status = "No Damage Info";
 		--return;
 	end
@@ -278,7 +382,17 @@ function this.on_notify_hit_damage(damage_info, enemy_context)
 
 	this.update_health(enemy);
 
-	xy = enemy.health;
+	if cached_config.reset_time_duration_on_damage_dealt_for_everyone then
+		for enemy_context, enemy in pairs(this.enemy_list) do
+			if time.total_elapsed_script_seconds - enemy.last_reset_time < cached_config.time_duration then
+				this.update_last_reset_time(enemy);
+			end
+		end
+	end
+	
+	if cached_config.apply_time_duration_on_damage_dealt then
+		this.update_last_reset_time(enemy);
+	end
 end
 
 function this.on_notify_dead(damage_info, enemy_context)
@@ -289,64 +403,20 @@ function this.on_notify_dead(damage_info, enemy_context)
 	
 	if enemy_context == nil then
 		customization_menu.status = "No Enemy Context";
-		--return;
+		return;
 	end
 
 	local enemy = this.get_enemy(enemy_context);
 	enemy.is_live = false;
 end
 
-local enemy_base_context_type_def = sdk.find_type_definition("chainsaw.EnemyBaseContext");
-local can_valid_position_save_method = enemy_base_context_type_def:get_method("canValidPositionSave");
-
-sdk.hook(can_valid_position_save_method, function(args)
-	local enemy_context = sdk.to_managed_object(args[2]);
-	this.on_can_valid_position_save(enemy_context);
-end, function(retval)
-	return retval;
-end);
-
-local enemy_manager = sdk.find_type_definition("chainsaw.EnemyManager");
-local notify_hit_damage_method = enemy_manager:get_method("notifyHitDamage");
-local notify_dead_method = enemy_manager:get_method("notifyDead");
-
-sdk.hook(notify_hit_damage_method, function(args)
-	local damage_info = sdk.to_managed_object(args[3]);
-	local enemy_context = sdk.to_managed_object(args[4]);
-
-	this.on_notify_hit_damage(damage_info, enemy_context);
-end, function(retval)
-	return retval;
-end);
-
-sdk.hook(notify_dead_method, function(args)
-	local damage_info = sdk.to_managed_object(args[3]);
-	local enemy_context = sdk.to_managed_object(args[4]);
-	
-	this.on_notify_dead(damage_info, enemy_context);
-end, function(retval)
-	return retval;
-end);
-
-function this.update_player_position()
-    if singletons.character_manager == nil then
-		customization_menu.status = "No Character Manager";
-        return;
-    end
-
-	local player_context = get_player_context_method:call(singletons.character_manager);
-	if player_context == nil then
-		customization_menu.status = "No Player Context";
+function this.on_release(enemy_context)
+	if enemy_context == nil then
+		customization_menu.status = "No Enemy Context";
 		return;
 	end
 
-	local position = get_player_position_method:call(player_context);
-	if position == nil then
-		customization_menu.status = "No Player Position";
-		return;
-	end
-
-   this.player_position = position;
+	this.enemy_list[enemy_context] = nil;
 end
 
 function this.init_module()
@@ -355,6 +425,42 @@ function this.init_module()
 	singletons = require("Health_Bars.singletons");
 	drawing = require("Health_Bars.drawing");
 	customization_menu = require("Health_Bars.customization_menu");
+	player_handler = require("Health_Bars.player_handler");
+	time = require("Health_Bars.time");
+
+	sdk.hook(can_valid_position_save_method, function(args)
+		local enemy_context = sdk.to_managed_object(args[2]);
+		this.on_can_valid_position_save(enemy_context);
+	end, function(retval)
+		return retval;
+	end);
+	
+	sdk.hook(notify_hit_damage_method, function(args)
+		local damage_info = sdk.to_managed_object(args[3]);
+		local enemy_context = sdk.to_managed_object(args[4]);
+
+		this.on_notify_hit_damage(damage_info, enemy_context);
+	end, function(retval)
+		return retval;
+	end);
+
+	sdk.hook(notify_dead_method, function(args)
+		local damage_info = sdk.to_managed_object(args[3]);
+		local enemy_context = sdk.to_managed_object(args[4]);
+		
+		this.on_notify_dead(damage_info, enemy_context);
+	end, function(retval)
+		return retval;
+	end);
+
+	sdk.hook(release_method, function(args)
+		local damage_info = sdk.to_managed_object(args[3]);
+		local enemy_context = sdk.to_managed_object(args[4]);
+		
+		this.on_release(enemy_context);
+	end, function(retval)
+		return retval;
+	end);
 end
 
 return this;

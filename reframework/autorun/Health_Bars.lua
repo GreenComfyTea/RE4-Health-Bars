@@ -1,3 +1,4 @@
+
 local sdk = sdk;
 local tostring = tostring;
 local pairs = pairs;
@@ -27,6 +28,8 @@ local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
 
+local debug = require("Health_Bars.debug");
+local time = require("Health_Bars.time");
 local drawing = require("Health_Bars.drawing");
 local utils = require("Health_Bars.utils");
 local config = require("Health_Bars.config");
@@ -37,10 +40,16 @@ local label_customization = require("Health_Bars.label_customization");
 local bar_customization = require("Health_Bars.bar_customization");
 local customization_menu = require("Health_Bars.customization_menu");
 
+local player_handler = require("Health_Bars.player_handler");
 local enemy_handler = require("Health_Bars.enemy_handler");
+
+if debug.enabled then
+	xy = "";
+end
 
 ------------------------INIT MODULES-------------------------
 -- #region
+time.init_module();
 drawing.init_module();
 utils.init_module();
 config.init_module();
@@ -51,6 +60,7 @@ label_customization.init_module();
 bar_customization.init_module();
 customization_menu.init_module();
 
+player_handler.init_module();
 enemy_handler.init_module();
 
 log.info("[Health Bars] Loaded.");
@@ -59,21 +69,26 @@ log.info("[Health Bars] Loaded.");
 
 ----------------------------LOOP-----------------------------
 -- #region
+re.on_pre_application_entry("UpdateBehavior", function()
+	if not config.current_config.enabled then
+		return;
+	end
+
+	time.update_script_time();
+	singletons.init();
+	screen.update_window_size();
+	
+	player_handler.update();
+	enemy_handler.update_all_positions_and_rays();
+end);
 
 local function main_loop()
-	local cached_config = config.current_config;
-
-	if not cached_config.enabled then
+	if not config.current_config.enabled then
 		return;
 	end
 
 	customization_menu.status = "OK";
 
-	singletons.init();
-	screen.update_window_size();
-	enemy_handler.update_player_position();
-
-	--enemy_handler.update_enemies();
 	enemy_handler.draw_enemies();
 end
 
@@ -129,3 +144,30 @@ re.on_frame(function()
 end);
 -- #endregion
 ----------------------------D2D------------------------------
+
+if debug.enabled then
+	if d2d ~= nil then
+		d2d.register(function()
+		end, function()
+			if not config.current_config.settings.use_d2d_if_available then
+				return;
+			end
+	
+			if xy ~= "" then
+				d2d.text(drawing.font, "xy:\n" .. tostring(xy), 256, 71, 0xFF000000);
+				d2d.text(drawing.font, "xy:\n" .. tostring(xy), 255, 70, 0xFFFFFFFF);
+			end
+		end);
+	end
+	
+	re.on_frame(function()
+		if d2d ~= nil and config.current_config.settings.use_d2d_if_available then
+			return;
+		end
+	
+		if xy ~= "" then
+			draw.text("xy:\n" .. tostring(xy), 256, 31, 0xFF000000);	
+			draw.text("xy:\n" .. tostring(xy), 255, 30, 0xFFFFFFFF);
+		end
+	end);
+end
