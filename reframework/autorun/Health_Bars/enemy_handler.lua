@@ -42,6 +42,14 @@ local os = os;
 this.enemy_list = {};
 this.enemy_body_list = {};
 
+this.vital_states = {
+	Fine = 0,
+	Caution = 1,
+	Danger = 2,
+	Poison = 3,
+	Dead = 4
+}
+
 local character_manager_type_def = sdk.find_type_definition("chainsaw.CharacterManager");
 local get_enemy_context_list_method = character_manager_type_def:get_method("get_EnemyContextList");
 local get_player_context_method = character_manager_type_def:get_method("getPlayerContextRef");
@@ -71,6 +79,16 @@ local get_player_position_method = player_base_context_type_def:get_method("get_
 local enemy_manager = sdk.find_type_definition("chainsaw.EnemyManager");
 local notify_hit_damage_method = enemy_manager:get_method("notifyHitDamage");
 local notify_dead_method = enemy_manager:get_method("notifyDead");
+
+function this.get_vital_state_name(index)
+	for state_name, state_index in pairs(this.vital_states) do
+		if state_index == index then
+			return state_name;
+		end
+	end
+
+	return "None";
+end
 
 function this.new(enemy_context)
 	local enemy = {};
@@ -418,6 +436,8 @@ function this.on_notify_dead(damage_info, enemy_context)
 
 	local enemy = this.get_enemy(enemy_context);
 	enemy.is_live = false;
+
+	this.update_health(enemy);
 end
 
 function this.on_release(enemy_context)

@@ -108,6 +108,8 @@ function this.update_aim_target(player_context)
 	local aim_target_body = get_aim_target_enemy_method:call(player_context);
 	this.player.aim_target_body = aim_target_body;
 
+	xy = aim_target_body;
+
 	if aim_target_body == nil then
 		return;
 	end

@@ -1,5 +1,5 @@
 local this = {};
 
-this.enabled = false;
+this.enabled = true;
 
 return this;
