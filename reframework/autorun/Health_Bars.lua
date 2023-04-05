@@ -40,6 +40,7 @@ local label_customization = require("Health_Bars.label_customization");
 local bar_customization = require("Health_Bars.bar_customization");
 local customization_menu = require("Health_Bars.customization_menu");
 
+local gui_handler = require("Health_Bars.gui_handler");
 local player_handler = require("Health_Bars.player_handler");
 local enemy_handler = require("Health_Bars.enemy_handler");
 
@@ -60,6 +61,7 @@ label_customization.init_module();
 bar_customization.init_module();
 customization_menu.init_module();
 
+gui_handler.init_module();
 player_handler.init_module();
 enemy_handler.init_module();
 
@@ -77,7 +79,8 @@ re.on_pre_application_entry("UpdateBehavior", function()
 	time.update_script_time();
 	singletons.init();
 	screen.update_window_size();
-	
+
+	gui_handler.update();
 	player_handler.update();
 	enemy_handler.update_all_positions_and_rays();
 end);
