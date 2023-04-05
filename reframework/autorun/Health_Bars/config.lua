@@ -30,6 +30,7 @@ local imgui = imgui;
 local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
+local os = os;
 
 this.current_config = nil;
 this.config_file_name = "Health Bars/config.json";
@@ -42,10 +43,34 @@ function this.init()
 
 		settings = {
 			use_d2d_if_available = true,
+
+			render_during_cutscenes = false,
+			render_when_hud_is_off = false,
+
+			render_aim_target_enemy = true,
+			render_damaged_enemies = true,
+			render_everyone_else = true,
+
+			render_when_normal = true,
+			render_when_aiming = true,
+			render_when_using_scope = true,
+
 			hide_if_dead = true,
+			hide_if_full_health = true,
 			hide_if_no_ray_to_player = true,
+
 			opacity_falloff = true,
-			max_distance = 30
+			max_distance = 30,
+			scope_opacity_falloff = true,
+			scope_max_distance = 300,
+
+			apply_time_duration_on_aiming = true,
+			apply_time_duration_on_aim_target = true,
+			apply_time_duration_on_using_scope = true,
+			apply_time_duration_on_damage_dealt = true,
+			reset_time_duration_on_aim_target_for_everyone = true,
+			reset_time_duration_on_damage_dealt_for_everyone = true,
+			time_duration = 15,
 		},
 
 		world_offset = {

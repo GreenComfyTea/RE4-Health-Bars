@@ -28,6 +28,7 @@ local imgui = imgui;
 local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
+local os = os;
 
 local table_tostring;
 local deep_copy;

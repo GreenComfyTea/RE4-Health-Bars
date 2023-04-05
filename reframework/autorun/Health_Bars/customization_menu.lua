@@ -33,6 +33,7 @@ local imgui = imgui;
 local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
+local os = os;
 
 this.status = "OK";
 
@@ -42,12 +43,12 @@ this.is_opened = false;
 
 this.window_position = Vector2f.new(480, 200);
 this.window_pivot = Vector2f.new(0, 0);
-this.window_size = Vector2f.new(450, 450);
+this.window_size = Vector2f.new(550, 450);
 this.window_flags = 0x10120;
 this.color_picker_flags = 327680;
 this.decimal_input_flags = 33;
 
-this.config_changed = false;;
+this.config_changed = false;
 
 function this.init()
 end
@@ -77,17 +78,76 @@ function this.draw()
 	config_changed = config_changed or changed;
 
 	if imgui.tree_node("Settings") then
+		--imgui.begin_rect()
+
 		changed, cached_config.settings.use_d2d_if_available = imgui.checkbox("Use Direct2D Renderer if Available",
 			cached_config.settings.use_d2d_if_available);
 		config_changed = config_changed or changed;
+
+		--imgui.end_rect(5);
+		imgui.new_line();
+		imgui.begin_rect()
+
+		changed, cached_config.settings.render_during_cutscenes = imgui.checkbox("Render during Cutscenes",
+			cached_config.settings.render_during_cutscenes);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.render_when_hud_is_off = imgui.checkbox("Render when HUD is Off",
+			cached_config.settings.render_when_hud_is_off);
+		config_changed = config_changed or changed;
+		
+		imgui.end_rect(5);
+		imgui.new_line();
+		imgui.begin_rect()
+
+
+		changed, cached_config.settings.render_aim_target_enemy = imgui.checkbox("Render Aim Target Enemy",
+			cached_config.settings.render_aim_target_enemy);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.render_damaged_enemies = imgui.checkbox("Render Damaged Enemies",
+			cached_config.settings.render_damaged_enemies);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.render_everyone_else = imgui.checkbox("Render Everyone Else",
+			cached_config.settings.render_everyone_else);
+		config_changed = config_changed or changed;
+		
+		imgui.end_rect(5);
+		imgui.new_line();
+		imgui.begin_rect()
+		
+		changed, cached_config.settings.render_when_normal = imgui.checkbox("Render when Normal",
+			cached_config.settings.render_when_normal);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.render_when_aiming = imgui.checkbox("Render when Aiming",
+			cached_config.settings.render_when_aiming);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.render_when_using_scope = imgui.checkbox("Render when using Scope",
+			cached_config.settings.render_when_using_scope);
+		config_changed = config_changed or changed;
+
+		imgui.end_rect(5);
+		imgui.new_line();
+		imgui.begin_rect()
 
 		changed, cached_config.settings.hide_if_dead = imgui.checkbox("Hide if Dead",
 			cached_config.settings.hide_if_dead);
 		config_changed = config_changed or changed;
 
+		changed, cached_config.settings.hide_if_full_health = imgui.checkbox("Hide if Full Health",
+			cached_config.settings.hide_if_full_health);
+		config_changed = config_changed or changed;
+
 		changed, cached_config.settings.hide_if_no_ray_to_player = imgui.checkbox("Hide if No Ray to Player",
 			cached_config.settings.hide_if_no_ray_to_player);
 		config_changed = config_changed or changed;
+
+		imgui.end_rect(5);
+		imgui.new_line();
+		imgui.begin_rect()
 
 		changed, cached_config.settings.opacity_falloff = imgui.checkbox("Opacity Falloff",
 			cached_config.settings.opacity_falloff);
@@ -97,6 +157,48 @@ function this.draw()
 			cached_config.settings.max_distance, 1, 0, 10000, "%.0f");
 		config_changed = config_changed or changed;
 
+		changed, cached_config.settings.scope_opacity_falloff = imgui.checkbox("Opacity Falloff (Scope)",
+			cached_config.settings.scope_opacity_falloff);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.scope_max_distance = imgui.drag_float("Max Distance (Scope)",
+			cached_config.settings.scope_max_distance, 1, 0, 10000, "%.0f");
+		config_changed = config_changed or changed;
+
+		imgui.end_rect(5);
+		imgui.new_line();
+		imgui.begin_rect()
+
+		changed, cached_config.settings.apply_time_duration_on_aiming = imgui.checkbox("Apply Time Duration on Aiming",
+			cached_config.settings.apply_time_duration_on_aiming);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.apply_time_duration_on_aim_target = imgui.checkbox("Apply Time Duration on Aim Target",
+			cached_config.settings.apply_time_duration_on_aim_target);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.apply_time_duration_on_using_scope = imgui.checkbox("Apply Time Duration on using Scope",
+			cached_config.settings.apply_time_duration_on_using_scope);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.apply_time_duration_on_damage_dealt = imgui.checkbox("Apply Time Duration on Damage Dealt",
+			cached_config.settings.apply_time_duration_on_damage_dealt);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.reset_time_duration_on_aim_target_for_everyone = imgui.checkbox("Reset Time Duration on Aim Target for Everyone",
+			cached_config.settings.reset_time_duration_on_aim_target_for_everyone);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.reset_time_duration_on_damage_dealt_for_everyone = imgui.checkbox("Reset Time Duration on Damage Dealt for Everyone",
+			cached_config.settings.reset_time_duration_on_damage_dealt_for_everyone);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.settings.time_duration = imgui.drag_float("Time Duration (sec)",
+			cached_config.settings.time_duration, 0.1, 0, 1000, "%.1f");
+
+		imgui.end_rect(5);
+		imgui.new_line();
+		
 		imgui.tree_pop();
 	end
 
