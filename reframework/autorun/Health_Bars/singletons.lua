@@ -1,4 +1,4 @@
-local singletons = {};
+local this = {};
 
 local customization_menu;
 
@@ -30,48 +30,65 @@ local imgui = imgui;
 local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
+local os = os;
 
 local character_manager_name = "chainsaw.CharacterManager";
 local scene_manager_name = "via.SceneManager";
+local gui_manager_name = "chainsaw.GuiManager";
 
-singletons.character_manager = nil;
-singletons.scene_manager = nil;
+this.character_manager = nil;
+this.scene_manager = nil;
+this.gui_manager = nil;
 
-function singletons.init()
-	singletons.init_character_manager();
-	singletons.init_scene_manager();
+function this.init()
+	this.init_character_manager();
+	this.init_scene_manager();
+	this.init_gui_manager();
 end
 
-function singletons.init_character_manager()
-	if singletons.character_manager ~= nil then
+function this.init_character_manager()
+	if this.character_manager ~= nil then
 		return;
 	end
 
-	singletons.character_manager = sdk.get_managed_singleton(character_manager_name);
-	if singletons.character_manager == nil then
+	this.character_manager = sdk.get_managed_singleton(character_manager_name);
+	if this.character_manager == nil then
 		customization_menu.status = "No Character Manager";
 	end
 
-	return singletons.character_manager;
+	return this.character_manager;
 end
 
-function singletons.init_scene_manager()
-	if singletons.scene_manager ~= nil then
+function this.init_scene_manager()
+	if this.scene_manager ~= nil then
 		return;
 	end
 
-	singletons.scene_manager = sdk.get_native_singleton(scene_manager_name);
-	if singletons.scene_manager == nil then
+	this.scene_manager = sdk.get_native_singleton(scene_manager_name);
+	if this.scene_manager == nil then
 		customization_menu.status = "No Scene Manager";
 	end
 
-	return singletons.scene_manager;
+	return this.scene_manager;
 end
 
-function singletons.init_module()
+function this.init_gui_manager()
+	if this.gui_manager ~= nil then
+		return;
+	end
+
+	this.gui_manager = sdk.get_managed_singleton(gui_manager_name);
+	if this.gui_manager == nil then
+		customization_menu.status = "No GUI Manager";
+	end
+
+	return this.gui_manager;
+end
+
+function this.init_module()
 	customization_menu = require("Health_Bars.customization_menu");
 
-	singletons.init();
+	this.init();
 end
 
-return singletons;
+return this;
