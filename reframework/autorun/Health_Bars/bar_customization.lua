@@ -33,6 +33,7 @@ local imgui = imgui;
 local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
+local os = os;
 
 local outline_styles = {"Inside", "Center", "Outside"};
 local directions = {"Left to Right", "Right to Left", "Top to Bottom", "Bottom to Top"};
