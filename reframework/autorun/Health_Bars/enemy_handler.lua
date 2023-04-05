@@ -6,6 +6,7 @@ local config;
 local drawing;
 local customization_menu;
 local player_handler;
+local gui_handler;
 local time;
 
 local sdk = sdk;
@@ -189,12 +190,8 @@ end
 
 function this.update_all_positions_and_rays()
 	for enemy_context, enemy in pairs(this.enemy_list) do
-		if time.total_elapsed_script_seconds - enemy.last_update_time > 1 then
-			this.enemy_list[enemy_context] = nil;
-		else
-			this.update_position(enemy);
-			this.update_has_ray_to_player(enemy);
-		end
+		this.update_position(enemy);
+		this.update_has_ray_to_player(enemy);
 	end
 end
 
@@ -241,11 +238,15 @@ end
 function this.draw_enemies()
 	local cached_config = config.current_config;
 
-	if not cached_config.settings.render_during_cutscenes and player_handler.game.is_cutscene_playing then
+	if gui_handler.game.current_active_input_level > 0 then
 		return;
 	end
 
-	if not cached_config.settings.render_when_hud_is_off and player_handler.game.is_hud_off then
+	if not cached_config.settings.render_during_cutscenes and gui_handler.game.is_cutscene_playing then
+		return;
+	end
+
+	if not cached_config.settings.render_when_hud_is_off and gui_handler.game.is_hud_off then
 		return;
 	end
 
@@ -365,6 +366,15 @@ function this.draw_enemies()
 	end
 end
 
+function this.on_can_valid_position_save(enemy_context)
+	if enemy_context == nil then
+		customization_menu.status = "No Enemy Context";
+		return;
+	end
+
+	local enemy = this.get_enemy(enemy_context);
+end
+
 function this.on_notify_hit_damage(damage_info, enemy_context)
 	local cached_config = config.current_config.settings;
 
@@ -426,6 +436,7 @@ function this.init_module()
 	drawing = require("Health_Bars.drawing");
 	customization_menu = require("Health_Bars.customization_menu");
 	player_handler = require("Health_Bars.player_handler");
+	gui_handler = require("Health_Bars.gui_handler");
 	time = require("Health_Bars.time");
 
 	sdk.hook(can_valid_position_save_method, function(args)
@@ -454,8 +465,7 @@ function this.init_module()
 	end);
 
 	sdk.hook(release_method, function(args)
-		local damage_info = sdk.to_managed_object(args[3]);
-		local enemy_context = sdk.to_managed_object(args[4]);
+		local enemy_context = sdk.to_managed_object(args[2]);
 		
 		this.on_release(enemy_context);
 	end, function(retval)
