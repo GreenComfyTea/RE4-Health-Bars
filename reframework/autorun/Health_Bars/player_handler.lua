@@ -43,10 +43,6 @@ this.player.is_aiming = false;
 this.player.is_using_scope = false;
 this.player.aim_target_body = nil;
 
-this.game = {};
-this.game.is_cutscene_playing = false;
-this.game.is_hud_off = false;
-
 local character_manager_type_def = sdk.find_type_definition("chainsaw.CharacterManager");
 local get_player_context_method = character_manager_type_def:get_method("getPlayerContextRef");
 
@@ -162,39 +158,6 @@ function this.update_is_using_scope(player_context)
 	end
 end
 
-function this.update_is_cutscene()
-	if singletons.gui_manager == nil then
-		customization_menu.status = "No GUI Manager";
-        return;
-    end
-
-	local is_playing_event = get_is_playing_event_method:call(singletons.gui_manager);
-	local is_hud_off = get_is_hud_off_method:call(singletons.gui_manager);
-	
-	if is_playing_event == nil then
-		customization_menu.status = "No IsPlayingEvent";
-        return;
-	end
-
-	this.game.is_cutscene_playing = is_playing_event;
-end
-
-function this.update_is_hud_off()
-	if singletons.gui_manager == nil then
-		customization_menu.status = "No GUI Manager";
-        return;
-    end
-
-	local is_hud_off = get_is_hud_off_method:call(singletons.gui_manager);
-	
-	if is_hud_off == nil then
-		customization_menu.status = "No IsHudOff";
-        return;
-	end
-
-	this.game.is_hud_off = is_hud_off;
-end
-
 function this.update()
     if singletons.character_manager == nil then
 		customization_menu.status = "No Character Manager";
@@ -211,9 +174,6 @@ function this.update()
 	this.update_is_aiming(player_context);
 	this.update_aim_target(player_context);
 	this.update_is_using_scope(player_context);
-
-	this.update_is_cutscene();
-	this.update_is_hud_off();
 end
 
 function this.init_module()
@@ -223,8 +183,6 @@ function this.init_module()
 	customization_menu = require("Health_Bars.customization_menu");
 	enemy_handler = require("Health_Bars.enemy_handler");
 	time = require("Health_Bars.time");
-
-	--
 end
 
 return this;
