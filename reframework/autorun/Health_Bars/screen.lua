@@ -2,6 +2,7 @@ local this = {};
 
 local config;
 local singletons;
+local utils;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -40,11 +41,13 @@ function this.update_window_size()
 	local width;
 	local height;
 
-	if d2d ~= nil and config.current_config.settings.use_d2d_if_available then
-		width, height = d2d.surface_size();
-	else
-		width, height = this.get_game_window_size();
-	end
+	--if d2d ~= nil and config.current_config.settings.use_d2d_if_available then
+	--	width, height = d2d.surface_size();
+	--else
+	--	width, height = this.get_game_window_size();
+	--end
+
+	width, height = this.get_game_window_size();
 
 	if width ~= nil then
 		this.width = width;
@@ -53,6 +56,8 @@ function this.update_window_size()
 	if height ~= nil then
 		this.height = height;
 	end
+
+	xy = string.format("%sx%s", tostring(this.width), tostring(this.height));
 end
 
 local scene_view;
@@ -97,6 +102,7 @@ end
 function this.init_module()
 	config = require("Health_Bars.config");
 	singletons = require("Health_Bars.singletons");
+	utils = require("Health_Bars.utils");
 end
 
 return this;
