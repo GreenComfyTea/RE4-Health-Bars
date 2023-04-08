@@ -56,8 +56,6 @@ function this.update_window_size()
 	if height ~= nil then
 		this.height = height;
 	end
-
-	xy = string.format("%sx%s", tostring(this.width), tostring(this.height));
 end
 
 local scene_view;
