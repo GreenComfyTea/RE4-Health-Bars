@@ -56,7 +56,7 @@ function this.draw(bar_name, bar)
 		bar_changed = bar_changed or changed;
 
 		if imgui.tree_node("Settings") then
-			local fill_direction_index = utils.table_find_index(directions, bar.settings.fill_direction);
+			local fill_direction_index = utils.table.find_index(directions, bar.settings.fill_direction);
 			changed, fill_direction_index = imgui.combo("Fill Type", fill_direction_index, directions);
 
 			bar_changed = bar_changed or changed;
@@ -107,7 +107,7 @@ function this.draw(bar_name, bar)
 
 
 			changed, index = imgui.combo("Style",
-				utils.table_find_index(outline_styles, bar.outline.style),
+				utils.table.find_index(outline_styles, bar.outline.style),
 				outline_styles);
 			bar_changed = bar_changed or changed;
 
