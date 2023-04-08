@@ -214,9 +214,14 @@ function this.update_last_reset_time(enemy)
 	enemy.last_reset_time = time.total_elapsed_script_seconds;
 end
 
-function this.update_all_positions_and_rays()
+function this.update_all_positions()
 	for enemy_context, enemy in pairs(this.enemy_list) do
 		this.update_position(enemy);
+	end
+end
+
+function this.update_all_rays()
+	for enemy_context, enemy in pairs(this.enemy_list) do
 		this.update_has_ray_to_player(enemy);
 	end
 end

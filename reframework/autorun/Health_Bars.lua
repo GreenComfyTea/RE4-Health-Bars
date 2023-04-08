@@ -82,7 +82,7 @@ re.on_pre_application_entry("UpdateBehavior", function()
 
 	gui_handler.update();
 	player_handler.update();
-	enemy_handler.update_all_positions_and_rays();
+	enemy_handler.update_all_rays();
 end);
 
 local function main_loop()
@@ -90,8 +90,9 @@ local function main_loop()
 		return;
 	end
 
-	customization_menu.status = "OK";
+	--customization_menu.status = "OK";
 
+	enemy_handler.update_all_positions();
 	enemy_handler.draw_enemies();
 end
 
