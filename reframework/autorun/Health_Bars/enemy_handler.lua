@@ -289,10 +289,6 @@ function this.draw_enemies()
 		max_distance = cached_config.settings.max_distance;
 	end
 
-	if max_distance == 0 then
-		return;
-	end
-
 	for enemy_context, enemy in pairs(this.enemy_list) do
 		if enemy.distance > max_distance then
 			goto continue;
