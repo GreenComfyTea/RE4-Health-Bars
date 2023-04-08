@@ -98,7 +98,7 @@ function this.init()
 				y = 0
 			},
 			
-			color = 0xB9FFF9B2,
+			color = 0xB9FFF7F2,
 
 			shadow = {
 				visibility = true,
@@ -147,10 +147,10 @@ function this.load()
 	local loaded_config = json.load_file(this.config_file_name);
 	if loaded_config ~= nil then
 		log.info("[Health Bars] config.json loaded successfully");
-		this.current_config = utils.table_merge(this.default_config, loaded_config);
+		this.current_config = utils.table.merge(this.default_config, loaded_config);
 	else
 		log.error("[Health Bars] Failed to load config.json");
-		this.current_config = utils.table_deep_copy(this.default_config);
+		this.current_config = utils.table.deep_copy(this.default_config);
 	end
 end
 
