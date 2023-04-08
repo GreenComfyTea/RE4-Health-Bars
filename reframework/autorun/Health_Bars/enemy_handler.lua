@@ -343,11 +343,11 @@ function this.draw_enemies()
 
 		local opacity_scale = 1;
 		if player_handler.player.is_using_scope then
-			if cached_config.settings.scope_opacity_falloff then
+			if cached_config.settings.scope_opacity_falloff and max_distance ~= 0 then
 				opacity_scale = 1 - (enemy.distance / max_distance);
 			end
 		else
-			if cached_config.settings.opacity_falloff then
+			if cached_config.settings.opacity_falloff  and max_distance ~= 0 then
 				opacity_scale = 1 - (enemy.distance / max_distance);
 			end
 		end
