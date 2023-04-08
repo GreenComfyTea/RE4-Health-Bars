@@ -44,6 +44,8 @@ function this.init()
 		settings = {
 			use_d2d_if_available = true,
 
+			add_enemy_height_to_world_offset = true,
+
 			render_during_cutscenes = false,
 			render_when_hud_is_off = false,
 
@@ -75,7 +77,7 @@ function this.init()
 
 		world_offset = {
 			x = 0,
-			y = 1.85,
+			y = 0.2,
 			z = 0
 		},
 
