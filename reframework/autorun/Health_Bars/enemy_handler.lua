@@ -65,6 +65,14 @@ local get_hit_point_method = enemy_base_context_type_def:get_method("get_HitPoin
 local get_body_game_object_method = enemy_base_context_type_def:get_method("get_BodyGameObject");
 local release_method = enemy_base_context_type_def:get_method("release");
 local get_is_lively_method = enemy_base_context_type_def:get_method("get_IsLively");
+local get_body_updater_method = enemy_base_context_type_def:get_method("get_BodyUpdater");
+local get_body_scale_method = enemy_base_context_type_def:get_method("get_BodyScale");
+
+local character_body_body_updater_type_def = get_body_updater_method:get_return_type();
+local get_character_controller_method = character_body_body_updater_type_def:get_method("get_CharacterController");
+
+local character_controller_type_def = get_character_controller_method:get_return_type();
+local get_height_method = character_controller_type_def:get_method("get_Height");
 
 local hit_point_type_def = get_hit_point_method:get_return_type();
 local get_default_hit_point_method = hit_point_type_def:get_method("get_DefaultHitPoint");
@@ -100,12 +108,14 @@ function this.new(enemy_context)
 
 	enemy.position = Vector3f.new(0, 0, 0);
 	enemy.distance = 0;
+	enemy.height = 0;
 
 	enemy.last_reset_time = 0;
 
 	enemy.body = nil;
 
 	this.update_health(enemy);
+	this.update_height(enemy);
 	this.update_body_game_object(enemy);
 
 	this.enemy_list[enemy_context] = enemy;
@@ -216,7 +226,7 @@ function this.update_position(enemy)
 		customization_menu.status = "No Enemy";
 		return;
 	end
-
+	
 	local position = get_position_method:call(enemy.enemy_context);
 
 	if position == nil then
@@ -249,6 +259,41 @@ function this.update_body_game_object(enemy)
 	enemy.body = body;
 
 	this.enemy_body_list[body] = enemy;
+end
+
+function this.update_height(enemy)
+	if enemy == nil then
+		customization_menu.status = "No Enemy";
+		return;
+	end
+
+	local body_updater = get_body_updater_method:call(enemy.enemy_context);
+	if body_updater == nil then
+		customization_menu.status = "No Body Updater";
+		return;
+	end
+
+	local character_controller = get_character_controller_method:call(body_updater);
+	if character_controller == nil then
+		customization_menu.status = "No Character Controller";
+		return;
+	end
+
+	local height = get_height_method:call(character_controller);
+	if height == nil then
+		customization_menu.status = "No Height";
+		return;
+	end
+
+	local body_scale = get_body_scale_method:call(enemy.enemy_context);
+	if body_scale == nil then
+		customization_menu.status = "No Body Scale";
+		enemy.height = height;
+		return;
+	end
+
+	enemy.body_scale = body_scale;
+	enemy.height = height * body_scale;
 end
 
 function this.draw_enemies()
@@ -332,7 +377,12 @@ function this.draw_enemies()
 			end
 		end
 
-		local world_offset = Vector3f.new(cached_config.world_offset.x, cached_config.world_offset.y, cached_config.world_offset.z);
+		local height_add = 0;
+		if cached_config.settings.add_enemy_height_to_world_offset then
+			height_add = enemy.height;
+		end
+
+		local world_offset = Vector3f.new(cached_config.world_offset.x, cached_config.world_offset.y + height_add, cached_config.world_offset.z);
 
 		local position_on_screen = draw.world_to_screen(enemy.position + world_offset);
 		if position_on_screen == nil then
@@ -370,7 +420,7 @@ function this.draw_enemies()
 			local right_aligment_format = string.format("%%%ds", right_alignment_shift);
 			health_value_text = string.format(right_aligment_format, health_value_text);
 		end
-		
+
 		drawing.draw_bar(cached_config.health_bar, position_on_screen, opacity_scale, enemy.health_percentage);
 		drawing.draw_label(health_value_label, position_on_screen, opacity_scale, health_value_text);
 		
