@@ -84,6 +84,10 @@ function this.draw()
 			cached_config.settings.use_d2d_if_available);
 		config_changed = config_changed or changed;
 
+		changed, cached_config.settings.add_enemy_height_to_world_offset = imgui.checkbox("Add Enemy Height to World Offset",
+			cached_config.settings.add_enemy_height_to_world_offset);
+		config_changed = config_changed or changed;
+
 		--imgui.end_rect(5);
 		imgui.new_line();
 		imgui.begin_rect()
