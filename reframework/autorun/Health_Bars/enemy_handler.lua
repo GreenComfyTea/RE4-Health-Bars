@@ -62,11 +62,9 @@ local enemy_base_context_type_def = sdk.find_type_definition("chainsaw.EnemyBase
 local get_position_method = enemy_base_context_type_def:get_method("get_Position");
 local get_has_ray_to_player_method = enemy_base_context_type_def:get_method("get_HasRayToPlayer");
 local get_hit_point_method = enemy_base_context_type_def:get_method("get_HitPoint");
-local can_valid_position_save_method = enemy_base_context_type_def:get_method("canValidPositionSave");
 local get_body_game_object_method = enemy_base_context_type_def:get_method("get_BodyGameObject");
 local release_method = enemy_base_context_type_def:get_method("release");
-
-local update_last_valid_position_method = enemy_base_context_type_def:get_method("updateLastValidPosition");
+local get_is_lively_method = enemy_base_context_type_def:get_method("get_IsLively");
 
 local hit_point_type_def = get_hit_point_method:get_return_type();
 local get_default_hit_point_method = hit_point_type_def:get_method("get_DefaultHitPoint");
@@ -347,7 +345,7 @@ function this.draw_enemies()
 				opacity_scale = 1 - (enemy.distance / max_distance);
 			end
 		else
-			if cached_config.settings.opacity_falloff  and max_distance ~= 0 then
+			if cached_config.settings.opacity_falloff and max_distance ~= 0 then
 				opacity_scale = 1 - (enemy.distance / max_distance);
 			end
 		end
@@ -380,7 +378,7 @@ function this.draw_enemies()
 	end
 end
 
-function this.on_can_valid_position_save(enemy_context)
+function this.on_get_is_lively(enemy_context)
 	if enemy_context == nil then
 		customization_menu.status = "No Enemy Context";
 		return;
@@ -455,9 +453,9 @@ function this.init_module()
 	gui_handler = require("Health_Bars.gui_handler");
 	time = require("Health_Bars.time");
 
-	sdk.hook(can_valid_position_save_method, function(args)
+	sdk.hook(get_is_lively_method, function(args)
 		local enemy_context = sdk.to_managed_object(args[2]);
-		this.on_can_valid_position_save(enemy_context);
+		this.on_get_is_lively(enemy_context);
 	end, function(retval)
 		return retval;
 	end);
