@@ -290,7 +290,7 @@ function this.draw_enemies()
 	end
 
 	for enemy_context, enemy in pairs(this.enemy_list) do
-		if enemy.distance > max_distance then
+		if max_distance ~= 0 and enemy.distance > max_distance then
 			goto continue;
 		end
 
