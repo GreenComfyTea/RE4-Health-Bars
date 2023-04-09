@@ -166,6 +166,10 @@ function this.save()
 	end
 end
 
+function this.reset()
+	this.current_config = utils.table.deep_copy(this.default_config);
+end
+
 function this.init_module()
 	utils = require("Health_Bars.utils");
 

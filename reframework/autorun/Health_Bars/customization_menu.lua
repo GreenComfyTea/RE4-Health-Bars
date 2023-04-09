@@ -67,6 +67,11 @@ function this.draw()
 		return;
 	end
 
+	if imgui.button("Reset Config") then
+		config.reset();
+	end
+
+	imgui.same_line();
 	imgui.text("Status: " .. tostring(this.status));
 
 	local changed = false;
