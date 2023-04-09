@@ -137,8 +137,6 @@ function this.get_enemy_null(enemy_context, create_if_not_found)
 		create_if_not_found = true;
 	end
 
-	--xy = tostring(create_if_not_found);
-
 	local enemy = this.enemy_list[enemy_context];
 	if enemy == nil and create_if_not_found then
 		enemy = this.new(enemy_context);
@@ -149,14 +147,14 @@ end
 
 function this.update_health(enemy)
 	if enemy == nil then
-		customization_menu.status = "No Enemy";
+		customization_menu.status = "[enemy.update_health] No Enemy";
 		return;
 	end
 
 	local hit_point = get_hit_point_method:call(enemy.enemy_context);
 
 	if hit_point == nil then
-		customization_menu.status = "No Enemy Hit Point";
+		customization_menu.status = "[enemy.update_health] No Enemy Hit Point";
 		return;
 	end
 
@@ -165,13 +163,13 @@ function this.update_health(enemy)
 	local is_live = get_is_live_method:call(hit_point);
 
 	if default_hit_point == nil then
-		customization_menu.status = "No Enemy Default Hit Point";
+		customization_menu.status = "[enemy.update_health] No Enemy Default Hit Point";
 	else
 		enemy.max_health = default_hit_point;
 	end
 
 	if current_hit_point == nil then
-		customization_menu.status = "No Enemy Current Hit Point";
+		customization_menu.status = "[enemy.update_health] No Enemy Current Hit Point";
 	else
 		enemy.health = current_hit_point;
 	end
@@ -183,7 +181,7 @@ function this.update_health(enemy)
 	end
 
 	if is_live == nil then
-		customization_menu.status = "No Enemy IsLive";
+		customization_menu.status = "[enemy.update_health] No Enemy IsLive";
 	else
 		enemy.is_live = is_live;
 	end
@@ -191,14 +189,14 @@ end
 
 function this.update_has_ray_to_player(enemy)
 	if enemy == nil then
-		customization_menu.status = "No Enemy";
+		customization_menu.status = "[enemy.has_ray_to_player] No Enemy";
 		return;
 	end
 
 	local has_ray_to_player = get_has_ray_to_player_method:call(enemy.enemy_context);
 
 	if has_ray_to_player == nil then
-		customization_menu.status = "No Enemy HasRayToPlayer";
+		customization_menu.status = "[enemy.has_ray_to_player] No Enemy HasRayToPlayer";
 		return;
 	end
 
@@ -207,7 +205,7 @@ end
 
 function this.update_last_reset_time(enemy)
 	if enemy == nil then
-		customization_menu.status = "No Enemy";
+		customization_menu.status = "[enemy.update_last_reset_time] No Enemy";
 		return;
 	end
 	
@@ -215,34 +213,38 @@ function this.update_last_reset_time(enemy)
 end
 
 function this.update_all_positions()
+
+	xy = ""
 	for enemy_context, enemy in pairs(this.enemy_list) do
 		this.update_position(enemy);
+		xy = xy .. "\n" .. utils.vec3.tostring(enemy.position);
 	end
 end
 
-function this.update_all_rays()
+function this.update_all_periodics()
 	for enemy_context, enemy in pairs(this.enemy_list) do
 		this.update_has_ray_to_player(enemy);
+		this.update_height(enemy);
 	end
 end
 
 function this.update_position(enemy)
 	if enemy == nil then
-		customization_menu.status = "No Enemy";
+		customization_menu.status = "[enemy.update_position] No Enemy";
 		return;
 	end
 	
 	local position = get_position_method:call(enemy.enemy_context);
 
 	if position == nil then
-		customization_menu.status = "No Enemy Position";
+		customization_menu.status = "[enemy.update_position] No Enemy Position";
 		return;
 	end
 
 	enemy.position = position;
 
 	if player_handler.player.position == nil then
-		customization_menu.status = "No Player Position";
+		customization_menu.status = "[enemy.update_position] No Player Position";
 		return;
 	end
 
@@ -251,13 +253,13 @@ end
 
 function this.update_body_game_object(enemy)
 	if enemy == nil then
-		customization_menu.status = "No Enemy";
+		customization_menu.status = "[enemy.update_body_game_object] No Enemy";
 		return;
 	end
 
 	local body = get_body_game_object_method:call(enemy.enemy_context);
 	if body == nil then
-		customization_menu.status = "No Enemy Body Game Object";
+		customization_menu.status = "[enemy.update_body_game_object] No Enemy Body Game Object";
 		return;
 	end
 
@@ -268,31 +270,31 @@ end
 
 function this.update_height(enemy)
 	if enemy == nil then
-		customization_menu.status = "No Enemy";
+		customization_menu.status = "[enemy.update_height] No Enemy";
 		return;
 	end
 
 	local body_updater = get_body_updater_method:call(enemy.enemy_context);
 	if body_updater == nil then
-		customization_menu.status = "No Body Updater";
+		customization_menu.status = "[enemy.update_height] No Body Updater";
 		return;
 	end
 
 	local character_controller = get_character_controller_method:call(body_updater);
 	if character_controller == nil then
-		customization_menu.status = "No Character Controller";
+		customization_menu.status = "[enemy.update_height] No Character Controller";
 		return;
 	end
 
 	local height = get_height_method:call(character_controller);
 	if height == nil then
-		customization_menu.status = "No Height";
+		customization_menu.status = "[enemy.update_height] No Height";
 		return;
 	end
 
 	local body_scale = get_body_scale_method:call(enemy.enemy_context);
 	if body_scale == nil then
-		customization_menu.status = "No Body Scale";
+		customization_menu.status = "[enemy.update_height] No Body Scale";
 		enemy.height = height;
 		return;
 	end
@@ -435,7 +437,7 @@ end
 
 function this.on_get_is_lively(enemy_context)
 	if enemy_context == nil then
-		customization_menu.status = "No Enemy Context";
+		customization_menu.status = "[enemy.on_get_is_lively] No Enemy Context";
 		return;
 	end
 
@@ -446,12 +448,12 @@ function this.on_notify_hit_damage(damage_info, enemy_context)
 	local cached_config = config.current_config.settings;
 
 	if damage_info == nil then
-		customization_menu.status = "No Damage Info";
+		customization_menu.status = "[enemy.on_notify_hit_damage] No Damage Info";
 		--return;
 	end
 	
 	if enemy_context == nil then
-		customization_menu.status = "No Enemy Context";
+		customization_menu.status = "[enemy.on_notify_hit_damage] No Enemy Context";
 		return;
 	end
 
@@ -474,12 +476,12 @@ end
 
 function this.on_notify_dead(damage_info, enemy_context)
 	if enemy_context == nil then
-		customization_menu.status = "No Damage Info";
+		customization_menu.status = "[enemy.on_notify_dead] No Damage Info";
 		--return;
 	end
 	
 	if enemy_context == nil then
-		customization_menu.status = "No Enemy Context";
+		customization_menu.status = "[enemy.on_notify_dead] No Enemy Context";
 		return;
 	end
 
@@ -491,7 +493,7 @@ end
 
 function this.on_release(enemy_context)
 	if enemy_context == nil then
-		customization_menu.status = "No Enemy Context";
+		customization_menu.status = "[enemy.on_release] No Enemy Context";
 		return;
 	end
 

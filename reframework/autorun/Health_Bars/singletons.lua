@@ -53,7 +53,7 @@ function this.init_character_manager()
 
 	this.character_manager = sdk.get_managed_singleton(character_manager_name);
 	if this.character_manager == nil then
-		customization_menu.status = "No Character Manager";
+		customization_menu.status = "[singletons] No Character Manager";
 	end
 
 	return this.character_manager;
@@ -66,7 +66,7 @@ function this.init_scene_manager()
 
 	this.scene_manager = sdk.get_native_singleton(scene_manager_name);
 	if this.scene_manager == nil then
-		customization_menu.status = "No Scene Manager";
+		customization_menu.status = "[singletons] No Scene Manager";
 	end
 
 	return this.scene_manager;
@@ -79,7 +79,7 @@ function this.init_gui_manager()
 
 	this.gui_manager = sdk.get_managed_singleton(gui_manager_name);
 	if this.gui_manager == nil then
-		customization_menu.status = "No GUI Manager";
+		customization_menu.status = "[singletons] No GUI Manager";
 	end
 
 	return this.gui_manager;

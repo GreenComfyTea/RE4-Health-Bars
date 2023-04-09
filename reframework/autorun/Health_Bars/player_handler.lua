@@ -61,13 +61,13 @@ local get_is_hud_off_method = gui_manager_type_def:get_method("get_IsHudOff");
 
 function this.update_position(player_context)
 	if player_context == nil then
-		customization_menu.status = "No Player Context";
+		customization_menu.status = "[player.update_position] No Player Context";
 		return;
 	end
 
 	local position = get_player_position_method:call(player_context);
 	if position == nil then
-		customization_menu.status = "No Player Position";
+		customization_menu.status = "[player.update_position] No Player Position";
 		return;
 	end
 
@@ -78,13 +78,13 @@ function this.update_is_aiming(player_context)
 	local cached_config = config.current_config.settings;
 
 	if player_context == nil then
-		customization_menu.status = "No Player Context";
+		customization_menu.status = "[player.update_is_aiming] No Player Context";
 		return;
 	end
 
 	local is_aiming = get_is_holding_method:call(player_context);
 	if is_aiming == nil then
-		customization_menu.status = "No Player IsAiming";
+		customization_menu.status = "[player.update_is_aiming] No Player IsAiming";
 		return;
 	end
 
@@ -101,7 +101,7 @@ function this.update_aim_target(player_context)
 	local cached_config = config.current_config.settings;
 
 	if player_context == nil then
-		customization_menu.status = "No Player Context";
+		customization_menu.status = "[player.update_aim_target] No Player Context";
 		return;
 	end
 
@@ -114,7 +114,7 @@ function this.update_aim_target(player_context)
 
 	local enemy = enemy_handler.enemy_body_list[aim_target_body];
 	if enemy == nil then
-		customization_menu.status = "No Aim Target Enemy";
+		customization_menu.status = "[player.update_aim_target] No Aim Target Enemy";
 		return;
 	end
 
@@ -133,19 +133,19 @@ end
 
 function this.update_is_using_scope(player_context)
 	if player_context == nil then
-		customization_menu.status = "No Player Context";
+		customization_menu.status = "[player.update_is_using_scope] No Player Context";
 		return;
 	end
 
 	local camera_controller = get_camera_controller_method:call(player_context);
 	if camera_controller == nil then
-		customization_menu.status = "No Player Camera Controller";
+		customization_menu.status = "[player.update_is_using_scope] No Player Camera Controller";
 		return;
 	end
 
 	local is_scope_camera = get_is_scope_camera_method:call(camera_controller);
 	if is_scope_camera == nil then
-		customization_menu.status = "No Player IsScopeCamera";
+		customization_menu.status = "[player.update_is_using_scope] No Player IsScopeCamera";
 		return;
 	end
 
@@ -160,13 +160,13 @@ end
 
 function this.update()
     if singletons.character_manager == nil then
-		customization_menu.status = "No Character Manager";
+		customization_menu.status = "[player.update] No Character Manager";
         return;
     end
 
 	local player_context = get_player_context_method:call(singletons.character_manager);
 	if player_context == nil then
-		customization_menu.status = "No Player Context";
+		customization_menu.status = "[player.update] No Player Context";
 		return;
 	end
 
