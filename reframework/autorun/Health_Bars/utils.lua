@@ -35,7 +35,14 @@ local deep_copy;
 local merge;
 local is_empty;
 
-function this.table_tostring(table_)
+this.table = {};
+this.number = {};
+this.string = {};
+this.vec2 = {};
+this.vec3 = {};
+this.vec4 = {};
+
+function this.table.tostring(table_)
 	if type(table_) == "number" or type(table_) == "boolean" or type(table_) == "string" then
 		return tostring(table_);
 	end
@@ -124,15 +131,15 @@ function this.table_tostring(table_)
     return output_str;
 end
 
-function this.table_tostringln(table_)
+function this.table.tostringln(table_)
 	return "\n" .. table_tostring(table_);
 end
 
-function this.table_is_empty(table_)
+function this.table.is_empty(table_)
 	return next(table_) == nil;
 end
 
-function this.table_deep_copy(original, copies)
+function this.table.deep_copy(original, copies)
 	copies = copies or {};
 	local original_type = type(original);
 	local copy;
@@ -153,7 +160,7 @@ function this.table_deep_copy(original, copies)
 	return copy;
 end
 
-function this.table_find_index(table_, value, nullable)
+function this.table.find_index(table_, value, nullable)
 	for i = 1, #table_ do
 		if table_[i] == value then
 			return i;
@@ -167,7 +174,7 @@ function this.table_find_index(table_, value, nullable)
 	return nil;
 end
 
-function this.table_merge(...)
+function this.table.merge(...)
 	local tables_to_merge = { ... };
 	assert(#tables_to_merge > 1, "There should be at least two tables to merge them");
 
@@ -193,28 +200,40 @@ function this.table_merge(...)
 	return result;
 end
 
-function this.number_is_NaN(value)
+function this.number.is_NaN(value)
 	return tostring(value) == tostring(0/0);
 end
 
-function this.number_round(value)
+function this.number.round(value)
 	return math.floor(value + 0.5);
 end
 
-function this.string_trim(str)
+function this.string.trim(str)
 	return str:match("^%s*(.-)%s*$");
 end
 
-function this.string_starts_with(str, pattern)
+function this.string.starts_with(str, pattern)
 	return str:find("^" .. pattern) ~= nil;
+end
+
+function this.vec2.tostring(vector2f)
+	return string.format("<%f, %f>", vector2f.x, vector2f.y);
+end
+
+function this.vec3.tostring(vector3f)
+	return string.format("<%f, %f, %f>", vector3f.x, vector3f.y, vector3f.z);
+end
+
+function this.vec4.tostring(vector4f)
+	return string.format("<%f, %f, %f, %f>", vector4f.x, vector4f.y, vector4f.z, vector4f.w);
 end
 
 function this.init_module()
 end
 
-table_tostring = this.table_tostring;
-deep_copy = this.table_deep_copy;
-merge = this.table_merge;
-is_empty = this.table_is_empty;
+table_tostring = this.table.tostring;
+deep_copy = this.table.deep_copy;
+merge = this.table.merge;
+is_empty = this.table.is_empty;
 
 return this;
