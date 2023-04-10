@@ -37,17 +37,29 @@ local os = os;
 this.width = 1920;
 this.height = 1080;
 
+local scene_view;
+local scene_view_type = sdk.find_type_definition("via.SceneView");
+local get_size_method = scene_view_type:get_method("get_Size");
+
+local size_type = get_size_method:get_return_type();
+local width_field = size_type:get_field("w");
+local height_field = size_type:get_field("h");
+
 function this.update_window_size()
 	local width;
 	local height;
 
-	--if d2d ~= nil and config.current_config.settings.use_d2d_if_available then
-	--	width, height = d2d.surface_size();
-	--else
-	--	width, height = this.get_game_window_size();
-	--end
-
-	width, height = this.get_game_window_size();
+	if d2d ~= nil and config.current_config.settings.use_d2d_if_available then
+		local success, d2d_width, d2d_height = pcall(d2d.surface_size);
+		if success then
+			width = d2d_width;
+			height = d2d_height;
+		else
+			width, height = this.get_game_window_size();
+		end
+	else
+		width, height = this.get_game_window_size();
+	end
 
 	if width ~= nil then
 		this.width = width;
@@ -57,14 +69,6 @@ function this.update_window_size()
 		this.height = height;
 	end
 end
-
-local scene_view;
-local scene_view_type = sdk.find_type_definition("via.SceneView");
-local get_size_method = scene_view_type:get_method("get_Size");
-
-local size_type = get_size_method:get_return_type();
-local width_field = size_type:get_field("w");
-local height_field = size_type:get_field("h");
 
 function this.get_game_window_size()
 	if scene_view == nil then
