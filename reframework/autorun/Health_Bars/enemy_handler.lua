@@ -358,11 +358,26 @@ function this.draw_enemies()
 			goto continue;
 		end
 
-		if not cached_config.settings.render_aim_target_enemy and enemy.body == player_handler.player.aim_target_body then
+		local is_time_duration_on = false;
+
+		if cached_config.settings.apply_time_duration_on_aiming
+		or cached_config.settings.apply_time_duration_on_aim_target
+		or cached_config.settings.apply_time_duration_on_using_scope
+		or cached_config.settings.apply_time_duration_on_damage_dealt then
+			if cached_config.settings.time_duration ~= 0 then
+				if time.total_elapsed_script_seconds - enemy.last_reset_time > cached_config.settings.time_duration then
+					goto continue;
+				else
+					is_time_duration_on = true;
+				end
+			end
+		end
+
+		if not cached_config.settings.render_aim_target_enemy and enemy.body == player_handler.player.aim_target_body and not is_time_duration_on then
 			goto continue;
 		end
 
-		if not cached_config.settings.render_damaged_enemies and enemy.health ~= enemy.max_health then
+		if not cached_config.settings.render_damaged_enemies and enemy.health ~= enemy.max_health and not is_time_duration_on then
 			if enemy.body == player_handler.player.aim_target_body then
 				if not cached_config.settings.render_aim_target_enemy then
 					goto continue;
@@ -372,7 +387,7 @@ function this.draw_enemies()
 			end
 		end
 
-		if not cached_config.settings.render_everyone_else and enemy.body ~= player_handler.player.aim_target_body and enemy.health == enemy.max_health then
+		if not cached_config.settings.render_everyone_else and enemy.body ~= player_handler.player.aim_target_body and enemy.health == enemy.max_health and not is_time_duration_on then
 			goto continue;
 		end
 
@@ -386,16 +401,6 @@ function this.draw_enemies()
 
 		if cached_config.settings.hide_if_no_ray_to_player and not enemy.has_ray_to_player then
 			goto continue;
-		end
-
-		if cached_config.settings.apply_time_duration_on_aiming
-		or cached_config.settings.apply_time_duration_on_aim_target
-		or cached_config.settings.apply_time_duration_on_using_scope
-		or cached_config.settings.apply_time_duration_on_damage_dealt then
-			if cached_config.settings.time_duration ~= 0
-			and time.total_elapsed_script_seconds - enemy.last_reset_time > cached_config.settings.time_duration then
-				goto continue;
-			end
 		end
 
 		local height_add = 0;
