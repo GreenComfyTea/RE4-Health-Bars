@@ -1,4 +1,5 @@
 local this = {};
+local version = "v1.2";
 
 local utils;
 
@@ -168,6 +169,7 @@ end
 
 function this.reset()
 	this.current_config = utils.table.deep_copy(this.default_config);
+	this.current_config.version = version;
 end
 
 function this.init_module()
@@ -175,7 +177,7 @@ function this.init_module()
 
 	this.init();
 	this.load();
-	this.current_config.version = "1.2";
+	this.current_config.version = version;
 end
 
 return this;
