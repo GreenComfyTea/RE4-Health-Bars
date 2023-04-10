@@ -64,9 +64,14 @@ local get_has_ray_to_player_method = enemy_base_context_type_def:get_method("get
 local get_hit_point_method = enemy_base_context_type_def:get_method("get_HitPoint");
 local get_body_game_object_method = enemy_base_context_type_def:get_method("get_BodyGameObject");
 local release_method = enemy_base_context_type_def:get_method("release");
+local get_is_combat_ready_method = enemy_base_context_type_def:get_method("get_IsCombatReady");
 local get_is_lively_method = enemy_base_context_type_def:get_method("get_IsLively");
 local get_body_updater_method = enemy_base_context_type_def:get_method("get_BodyUpdater");
 local get_body_scale_method = enemy_base_context_type_def:get_method("get_BodyScale");
+
+-- Ramon Salazar
+local ch1_f6_z0_type_def = sdk.find_type_definition("chainsaw.Ch1f6z0Context");
+local ch1_f6_z0_get_is_combat_ready_method = ch1_f6_z0_type_def:get_method("get_IsCombatReady");
 
 local character_body_body_updater_type_def = get_body_updater_method:get_return_type();
 local get_character_controller_method = character_body_body_updater_type_def:get_method("get_CharacterController");
@@ -213,18 +218,22 @@ function this.update_last_reset_time(enemy)
 end
 
 function this.update_all_positions()
-
-	xy = ""
 	for enemy_context, enemy in pairs(this.enemy_list) do
 		this.update_position(enemy);
-		xy = xy .. "\n" .. utils.vec3.tostring(enemy.position);
 	end
 end
 
 function this.update_all_periodics()
 	for enemy_context, enemy in pairs(this.enemy_list) do
+		if time.total_elapsed_script_seconds - enemy.last_update_time > update_time_limit then
+			this.enemy_list[enemy_context] = nil;
+			goto continue;
+		end
+
 		this.update_has_ray_to_player(enemy);
 		this.update_height(enemy);
+
+		::continue::
 	end
 end
 
@@ -435,7 +444,7 @@ function this.draw_enemies()
 	end
 end
 
-function this.on_get_is_lively(enemy_context)
+function this.on_enemy_update(enemy_context)
 	if enemy_context == nil then
 		customization_menu.status = "[enemy.on_get_is_lively] No Enemy Context";
 		return;
@@ -486,9 +495,9 @@ function this.on_notify_dead(damage_info, enemy_context)
 	end
 
 	local enemy = this.get_enemy(enemy_context);
-	enemy.is_live = false;
 
 	this.update_health(enemy);
+	enemy.is_live = false;
 end
 
 function this.on_release(enemy_context)
@@ -510,9 +519,25 @@ function this.init_module()
 	gui_handler = require("Health_Bars.gui_handler");
 	time = require("Health_Bars.time");
 
+	sdk.hook(ch1_f6_z0_get_is_combat_ready_method, function(args)
+		local enemy_context = sdk.to_managed_object(args[2]);
+		this.on_enemy_update(enemy_context);
+	end, function(retval)
+		return retval;
+	end);
+
 	sdk.hook(get_is_lively_method, function(args)
 		local enemy_context = sdk.to_managed_object(args[2]);
-		this.on_get_is_lively(enemy_context);
+		this.on_enemy_update(enemy_context);
+	end, function(retval)
+		return retval;
+	end);
+
+	sdk.hook(notify_hit_damage_method, function(args)
+		local damage_info = sdk.to_managed_object(args[3]);
+		local enemy_context = sdk.to_managed_object(args[4]);
+
+		this.on_notify_hit_damage(damage_info, enemy_context);
 	end, function(retval)
 		return retval;
 	end);
