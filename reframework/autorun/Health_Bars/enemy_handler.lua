@@ -133,7 +133,6 @@ end
 
 function this.get_enemy(enemy_context)
 	local enemy = this.enemy_list[enemy_context];
-
 	if enemy == nil then
 		enemy = this.new(enemy_context);
 	end
@@ -231,7 +230,7 @@ end
 
 function this.update_all_periodics()
 	for enemy_context, enemy in pairs(this.enemy_list) do
-		if time.total_elapsed_script_seconds - enemy.last_update_time > update_time_limit then
+		if config.current_config.settings.hide_if_no_update_function_is_being_called and time.total_elapsed_script_seconds - enemy.last_update_time > update_time_limit then
 			this.enemy_list[enemy_context] = nil;
 			goto continue;
 		end

@@ -43,7 +43,6 @@ function this.init()
 
 		settings = {
 			use_d2d_if_available = true,
-
 			add_enemy_height_to_world_offset = true,
 
 			render_during_cutscenes = false,
@@ -60,6 +59,7 @@ function this.init()
 			hide_if_dead = true,
 			hide_if_full_health = true,
 			hide_if_no_ray_to_player = true,
+			hide_if_no_update_function_is_being_called = true,
 
 			opacity_falloff = true,
 			max_distance = 30,

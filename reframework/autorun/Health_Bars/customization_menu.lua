@@ -154,6 +154,10 @@ function this.draw()
 			cached_config.settings.hide_if_no_ray_to_player);
 		config_changed = config_changed or changed;
 
+		changed, cached_config.settings.hide_if_no_update_function_is_being_called = imgui.checkbox("Hide if No Update Function is Being Called",
+			cached_config.settings.hide_if_no_update_function_is_being_called);
+		config_changed = config_changed or changed;
+
 		imgui.end_rect(5);
 		imgui.new_line();
 		imgui.begin_rect()
