@@ -50,6 +50,8 @@ this.vital_states = {
 	Dead = 4
 }
 
+local update_time_limit = 1;
+
 local character_manager_type_def = sdk.find_type_definition("chainsaw.CharacterManager");
 local get_enemy_context_list_method = character_manager_type_def:get_method("get_EnemyContextList");
 local get_player_context_method = character_manager_type_def:get_method("getPlayerContextRef");
@@ -116,6 +118,7 @@ function this.new(enemy_context)
 	enemy.height = 0;
 
 	enemy.last_reset_time = 0;
+	enemy.last_update_time = 0;
 
 	enemy.body = nil;
 
@@ -130,9 +133,12 @@ end
 
 function this.get_enemy(enemy_context)
 	local enemy = this.enemy_list[enemy_context];
+
 	if enemy == nil then
 		enemy = this.new(enemy_context);
 	end
+
+	enemy.last_update_time = time.total_elapsed_script_seconds;
 	
 	return enemy;
 end
