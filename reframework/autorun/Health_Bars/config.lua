@@ -1,5 +1,5 @@
 local this = {};
-local version = "1.2.1";
+local version = "1.3";
 
 local utils;
 
