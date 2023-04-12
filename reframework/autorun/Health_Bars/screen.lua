@@ -49,17 +49,19 @@ function this.update_window_size()
 	local width;
 	local height;
 
-	if d2d ~= nil and config.current_config.settings.use_d2d_if_available then
-		local success, d2d_width, d2d_height = pcall(d2d.surface_size);
-		if success then
-			width = d2d_width;
-			height = d2d_height;
-		else
-			width, height = this.get_game_window_size();
-		end
-	else
-		width, height = this.get_game_window_size();
-	end
+	--if d2d ~= nil and config.current_config.settings.use_d2d_if_available then
+	--	local success, d2d_width, d2d_height = pcall(d2d.surface_size);
+	--	if success then
+	--		width = d2d_width;
+	--		height = d2d_height;
+	--	else
+	--		width, height = this.get_game_window_size();
+	--	end
+	--else
+	--	width, height = this.get_game_window_size();
+	--end
+
+	width, height = this.get_game_window_size();
 
 	if width ~= nil then
 		this.width = width;
