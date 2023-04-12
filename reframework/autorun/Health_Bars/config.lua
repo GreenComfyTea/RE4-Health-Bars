@@ -42,6 +42,13 @@ function this.init()
 	this.default_config = {
 		enabled = true,
 
+		font = {
+			family = "Consolas",
+			size = 13,
+			bold = true,
+			italic = false
+		},
+
 		settings = {
 			use_d2d_if_available = true,
 			add_enemy_height_to_world_offset = true,

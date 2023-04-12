@@ -50,6 +50,18 @@ this.decimal_input_flags = 33;
 
 this.config_changed = false;
 
+this.fonts = {	"Arial", "Arial Black", "Bahnschrift", "Calibri", "Cambria", "Cambria Math", "Candara",
+				"Comic Sans MS", "Consolas", "Constantia", "Corbel", "Courier New", "Ebrima",
+				"Franklin Gothic Medium", "Gabriola", "Gadugi", "Georgia", "HoloLens MDL2 Assets", "Impact",
+				"Ink Free", "Javanese Text", "Leelawadee UI", "Lucida Console", "Lucida Sans Unicode",
+				"Malgun Gothic", "Marlett", "Microsoft Himalaya", "Microsoft JhengHei", "Microsoft New Tai Lue",
+				"Microsoft PhagsPa", "Microsoft Sans Serif", "Microsoft Tai Le", "Microsoft YaHei",
+				"Microsoft Yi Baiti", "MingLiU-ExtB", "Mongolian Baiti", "MS Gothic", "MV Boli", "Myanmar Text",
+				"Nirmala UI", "Palatino Linotype", "Segoe MDL2 Assets", "Segoe Print", "Segoe Script", "Segoe UI",
+				"Segoe UI Historic", "Segoe UI Emoji", "Segoe UI Symbol", "SimSun", "Sitka", "Sylfaen", "Symbol",
+				"Tahoma", "Times New Roman", "Trebuchet MS", "Verdana", "Webdings", "Wingdings", "Yu Gothic"
+};
+
 function this.init()
 end
 
@@ -82,9 +94,34 @@ function this.draw()
 	changed, cached_config.enabled = imgui.checkbox("Enabled", cached_config.enabled);
 	config_changed = config_changed or changed;
 
-	if imgui.tree_node("Settings") then
-		--imgui.begin_rect()
+	if imgui.tree_node("Font") then
+		imgui.text("Any changes to the font require script reload!");
 
+		changed, index = imgui.combo("Family",
+			utils.table.find_index(this.fonts, cached_config.font.family), this.fonts);
+		config_changed = config_changed or changed;
+
+		if changed then
+			cached_config.font.family = this.fonts[index];
+		end
+
+		changed, cached_config.font.size = imgui.slider_int("Size",
+			cached_config.font.size, 1, 100);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.font.bold = imgui.checkbox("Bold",
+			cached_config.font.bold);
+		config_changed = config_changed or changed;
+
+		changed, cached_config.font.italic = imgui.checkbox("Italic",
+			cached_config.font.italic);
+		config_changed = config_changed or changed;
+
+		imgui.tree_pop();
+
+	end
+
+	if imgui.tree_node("Settings") then
 		changed, cached_config.settings.use_d2d_if_available = imgui.checkbox("Use Direct2D Renderer if Available",
 			cached_config.settings.use_d2d_if_available);
 		config_changed = config_changed or changed;
@@ -93,7 +130,6 @@ function this.draw()
 			cached_config.settings.add_enemy_height_to_world_offset);
 		config_changed = config_changed or changed;
 
-		--imgui.end_rect(5);
 		imgui.new_line();
 		imgui.begin_rect()
 
@@ -233,7 +269,10 @@ function this.draw()
 
 		imgui.tree_pop();
 	end
+
 	changed = label_customization.draw("Health Value Label", cached_config.health_value_label);
+	config_changed = config_changed or changed;
+	
 	changed = bar_customization.draw("Health Bar", cached_config.health_bar);
 	config_changed = config_changed or changed;
 	
