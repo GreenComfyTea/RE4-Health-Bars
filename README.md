@@ -9,11 +9,12 @@ Mod for Resident Evil 4 Remake that draws health bars on top of enemies' heads.
 * **[Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84)**
 
 # Requirements
-1. [REFramework](https://www.nexusmods.com/residentevil42023/mods/12) (v1.4.1 or above);
+1. [REFramework](https://www.nexusmods.com/residentevil42023/mods/12) (v1.460 or above);
 2. [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83) (v0.4.0 or above).
 
 # How to install:
 1. Install [REFramework](https://www.nexusmods.com/residentevil42023/mods/12);
+2. (Optionally) Install [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83);
 3. Download the mod:
     * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84);
     * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/RE4-Health-Bars) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/residentevil42023/mods/12). Use with caution!
