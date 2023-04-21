@@ -31,17 +31,6 @@ local os = os;
 local ValueType = ValueType;
 local package = package;
 
-local debug_name = "Health_Bars.debug";
-local debug = nil;
-for _, searcher in ipairs(package.searchers or package.loaders) do
-	local loader = searcher(debug_name);
-
-	if type(loader) == "function" then
-		package.preload[debug_name] = loader;
-		debug = require(debug_name);
-	end
-end
-
 local time = require("Health_Bars.time");
 local drawing = require("Health_Bars.drawing");
 local utils = require("Health_Bars.utils");
@@ -56,10 +45,6 @@ local customization_menu = require("Health_Bars.customization_menu");
 local gui_handler = require("Health_Bars.gui_handler");
 local player_handler = require("Health_Bars.player_handler");
 local enemy_handler = require("Health_Bars.enemy_handler");
-
-if debug ~= nil and debug.enabled then
-	xy = "";
-end
 
 ------------------------INIT MODULES-------------------------
 -- #region
@@ -161,30 +146,3 @@ re.on_frame(function()
 end);
 -- #endregion
 ----------------------------D2D------------------------------
-
-if debug ~= nil and debug.enabled then
-	if d2d ~= nil then
-		d2d.register(function()
-		end, function()
-			if not config.current_config.settings.use_d2d_if_available then
-				return;
-			end
-	
-			if xy ~= "" then
-				d2d.text(drawing.font, "xy:\n" .. tostring(xy), 256, 71, 0xFF000000);
-				d2d.text(drawing.font, "xy:\n" .. tostring(xy), 255, 70, 0xFFFFFFFF);
-			end
-		end);
-	end
-	
-	re.on_frame(function()
-		if d2d ~= nil and config.current_config.settings.use_d2d_if_available then
-			return;
-		end
-	
-		if xy ~= "" then
-			draw.text("xy:\n" .. tostring(xy), 256, 31, 0xFF000000);	
-			draw.text("xy:\n" .. tostring(xy), 255, 30, 0xFFFFFFFF);
-		end
-	end);
-end
