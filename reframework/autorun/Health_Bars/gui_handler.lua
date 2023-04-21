@@ -1,11 +1,7 @@
 local this = {};
 
-local utils;
 local singletons;
-local config;
 local customization_menu;
-local enemy_handler;
-local time;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -118,12 +114,8 @@ function this.update()
 end
 
 function this.init_module()
-	utils = require("Health_Bars.utils");
-	config = require("Health_Bars.config");
 	singletons = require("Health_Bars.singletons");
 	customization_menu = require("Health_Bars.customization_menu");
-	enemy_handler = require("Health_Bars.enemy_handler");
-	time = require("Health_Bars.time");
 end
 
 return this;

@@ -27,8 +27,21 @@ local imgui = imgui;
 local draw = draw;
 local Vector2f = Vector2f;
 local reframework = reframework;
+local os = os;
+local ValueType = ValueType;
+local package = package;
 
-local debug = require("Health_Bars.debug");
+local debug_name = "Health_Bars.debug";
+local debug = nil;
+for _, searcher in ipairs(package.searchers or package.loaders) do
+	local loader = searcher(debug_name);
+
+	if type(loader) == "function" then
+		package.preload[debug_name] = loader;
+		debug = require(debug_name);
+	end
+end
+
 local time = require("Health_Bars.time");
 local drawing = require("Health_Bars.drawing");
 local utils = require("Health_Bars.utils");
@@ -44,7 +57,7 @@ local gui_handler = require("Health_Bars.gui_handler");
 local player_handler = require("Health_Bars.player_handler");
 local enemy_handler = require("Health_Bars.enemy_handler");
 
-if debug.enabled then
+if debug ~= nil and debug.enabled then
 	xy = "";
 end
 
@@ -149,7 +162,7 @@ end);
 -- #endregion
 ----------------------------D2D------------------------------
 
-if debug.enabled then
+if debug ~= nil and debug.enabled then
 	if d2d ~= nil then
 		d2d.register(function()
 		end, function()

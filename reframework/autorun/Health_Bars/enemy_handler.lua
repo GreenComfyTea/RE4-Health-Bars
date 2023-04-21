@@ -542,15 +542,6 @@ function this.init_module()
 	end, function(retval)
 		return retval;
 	end);
-
-	sdk.hook(notify_hit_damage_method, function(args)
-		local damage_info = sdk.to_managed_object(args[3]);
-		local enemy_context = sdk.to_managed_object(args[4]);
-
-		this.on_notify_hit_damage(damage_info, enemy_context);
-	end, function(retval)
-		return retval;
-	end);
 	
 	sdk.hook(notify_hit_damage_method, function(args)
 		local damage_info = sdk.to_managed_object(args[3]);
