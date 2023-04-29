@@ -109,7 +109,7 @@ re.on_draw_ui(function()
 
 	imgui.same_line();
 
-	changed, cached_config.enabled = imgui.checkbox("Enabled", cached_config.enabled);
+	changed, cached_config.enabled = imgui.checkbox("Enabled##HEALTH_BARS", cached_config.enabled);
 	if changed then
 		config.save();
 	end
