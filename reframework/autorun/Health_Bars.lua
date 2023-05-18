@@ -35,6 +35,7 @@ local time = require("Health_Bars.time");
 local drawing = require("Health_Bars.drawing");
 local utils = require("Health_Bars.utils");
 local config = require("Health_Bars.config");
+local language = require("Health_Bars.language");
 local screen = require("Health_Bars.screen");
 local singletons = require("Health_Bars.singletons");
 
@@ -51,6 +52,7 @@ local enemy_handler = require("Health_Bars.enemy_handler");
 time.init_module();
 drawing.init_module();
 utils.init_module();
+language.init_module();
 config.init_module();
 screen.init_module();
 singletons.init_module();

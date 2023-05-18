@@ -2,6 +2,7 @@ local this = {};
 local version = "1.4";
 
 local utils;
+local language;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -42,7 +43,13 @@ function this.init()
 	this.default_config = {
 		enabled = true,
 
-		font = {
+		language = "default",
+
+		menu_font = {
+			size = 15
+		},
+
+		ui_font = {
 			family = "Consolas",
 			size = 13,
 			bold = true,
@@ -181,10 +188,13 @@ end
 
 function this.init_module()
 	utils = require("Health_Bars.utils");
+	language = require("Health_Bars.language");
 
 	this.init();
 	this.load();
 	this.current_config.version = version;
+
+	language.update(utils.table.find_index(language.language_names, this.current_config.language));
 end
 
 return this;
