@@ -231,7 +231,7 @@ function this.draw()
 
 	end
 
-	if imgui.tree_node("Settings") then
+	if imgui.tree_node(cached_language.settings) then
 		changed, cached_config.settings.use_d2d_if_available = imgui.checkbox(cached_language.use_d2d_renderer_if_available,
 			cached_config.settings.use_d2d_if_available);
 		config_changed = config_changed or changed;
