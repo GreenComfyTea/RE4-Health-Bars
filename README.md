@@ -26,7 +26,10 @@ Mod for Resident Evil 4 Remake that draws health bars on top of enemies' heads.
 4. Extract the mod from the archive and place it in Resident Evil 4 folder. Final path should look like this: `/RESIDENT EVIL 4  BIOHAZARD RE4/reframework/autorun/Health_Bars.lua`
 
 # Credits
-**GreenComfyTea** - creator of the mod and it's main contributor.
++ **GreenComfyTea** - creator of the mod and it's main contributor.   
+  
+# Translation Contributors  
++ **Coconutat** - Simplified Chinese translator.  
   
 ***
 # Support
