@@ -23,12 +23,21 @@
 3. 下载这些mod:
     * 官方所发布的下载地址是 [Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84);
     * 每晚构建版本可以在[此存储库](https://github.com/GreenComfyTea/RE4-Health-Bars)中获取，可能包含错误功能、屏幕上的调试信息、错误和可能需要最新的[每晚构建版本](https://github.com/praydog/REFramework-nightly/releases)的[REFramework](https://www.nexusmods.com/residentevil42023/mods/12)。请谨慎使用！  
-4. 从存档中提取该模组，并将其放置在《生化危机4》文件夹中。最终路径应该如下所示：`/RESIDENT EVIL 4 BIOHAZARD RE4/reframework/autorun/Health_Bars.lua`。(汉化版还有一个字体文件。)
-
-# 功能代码贡献者名单  
-+ **GreenComfyTea** - 模组的创建者及其主要贡献者。  
+4. 从压缩包中解压mod文件(解压的后你应该得到**reframework**文件夹)，并将其复制进**RESIDENT EVIL 4 BIOHAZARD RE4**游戏根目录中。最终路径应该如下所示：`/RESIDENT EVIL 4 BIOHAZARD RE4/reframework/`。
+   > reframework文件夹目录下应该有 `autorun`,`data`,`font` 这三个文件夹。
   
-# 翻译贡献者名单  
+# 如何编译?
+**前置软件:**
++ [lua-amalg](https://github.com/siffiejoe/lua-amalg)    
++ [Lua 5.4+](https://www.lua.org/)  
+使用这些软件来编译脚本。  
+  
+**编译命令示例:(注意：将"lua54.exe”、“amalg.lua”和“Health_Bars.lua"的路径替换为您的路径):**  
+
+`"D:\Programs\Lua Amalg\lua54.exe" amalg.lua -o Health_Bars_precompiled.lua -d -s "E:\GitHub\RE4-Health-Bars\reframework\autorun\Health_Bars.lua" Health_Bars.bar_customization Health_Bars.config Health_Bars.customization_menu Health_Bars.drawing Health_Bars.enemy_handler Health_Bars.gui_handler Health_Bars.label_customization Health_Bars.player_handler Health_Bars.screen Health_Bars.singletons Health_Bars.time Health_Bars.utils Health_Bars.language`
+  
+# 贡献者名单  
++ **GreenComfyTea** - 模组的创建者及其主要贡献者。  
 + **Coconutat** - 简体中文翻译者。  
   
 ***
@@ -42,17 +51,3 @@
 <a href="https://ko-fi.com/greencomfytea">
   <img alt="Qries" src="https://panels.twitch.tv/panel-48897356-image-c2fcf835-87e4-408e-81e8-790789c7acbc">
 </a>
-
-# 如何编译?
-你需要: 
-+ [lua-amalg](https://github.com/siffiejoe/lua-amalg)    
-+ [Lua 5.4+](https://www.lua.org/)  
-使用这些软件来编译脚本。  
-  
-使用此处的命令:  
-`"你本机的路径！！！\lua54.exe" amalg.lua -o Health_Bars_precompiled.lua -d -s "你本机的路径！！！" Health_Bars.bar_customization Health_Bars.config Health_Bars.customization_menu Health_Bars.drawing Health_Bars.enemy_handler Health_Bars.gui_handler Health_Bars.label_customization Health_Bars.player_handler Health_Bars.screen Health_Bars.singletons Health_Bars.time Health_Bars.utils Health_Bars.language`  
-  
-# 翻译感谢名单： 
-+ 简体中文翻译 by [Coconutat](https://github.com/Coconutat)    
-+ 技术支持 by [GreenComfyTea](https://github.com/GreenComfyTea)      
-再次感谢 [GreenComfyTea](https://github.com/GreenComfyTea) 开发了这个令人惊叹的项目！  
