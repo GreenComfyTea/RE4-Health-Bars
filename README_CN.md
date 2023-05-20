@@ -23,7 +23,8 @@
 3. 下载这些mod:
     * 官方所发布的下载地址是 [Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84);
     * 每晚构建版本可以在[此存储库](https://github.com/GreenComfyTea/RE4-Health-Bars)中获取，可能包含错误功能、屏幕上的调试信息、错误和可能需要最新的[每晚构建版本](https://github.com/praydog/REFramework-nightly/releases)的[REFramework](https://www.nexusmods.com/residentevil42023/mods/12)。请谨慎使用！  
-4. 从存档中提取该模组，并将其放置在《生化危机4》文件夹中。最终路径应该如下所示：`/RESIDENT EVIL 4 BIOHAZARD RE4/reframework/autorun/Health_Bars.lua`。(汉化版还有一个字体文件。)
+4. 从压缩包中解压mod文件(解压的后你应该得到**reframework**文件夹)，并将其复制进**RESIDENT EVIL 4 BIOHAZARD RE4**游戏根目录中。最终路径应该如下所示：`/RESIDENT EVIL 4 BIOHAZARD RE4/reframework/`。
+   > reframework文件夹目录下应该有 `autorun`,`data`,`font` 这三个文件夹。
   
 # 如何编译?
 **前置软件: **
