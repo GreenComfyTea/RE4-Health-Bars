@@ -27,7 +27,7 @@
    > reframework文件夹目录下应该有 `autorun`,`data`,`font` 这三个文件夹。
   
 # 如何编译?
-**前置软件: **
+**前置软件:**
 + [lua-amalg](https://github.com/siffiejoe/lua-amalg)    
 + [Lua 5.4+](https://www.lua.org/)  
 使用这些软件来编译脚本。  
