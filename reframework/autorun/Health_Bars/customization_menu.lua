@@ -208,23 +208,23 @@ function this.draw()
 		imgui.text(cached_language.font_notice);
 		
 		changed, index = imgui.combo(cached_language.family,
-			utils.table.find_index(this.fonts, cached_config.font.family), this.fonts);
+			utils.table.find_index(this.fonts, cached_config.ui_font.family), this.fonts);
 		config_changed = config_changed or changed;
 
 		if changed then
-			cached_config.font.family = this.fonts[index];
+			cached_config.ui_font.family = this.fonts[index];
 		end
 
-		changed, cached_config.font.size = imgui.slider_int(cached_language.size,
-			cached_config.font.size, 1, 100);
+		changed, cached_config.ui_font.size = imgui.slider_int(cached_language.size,
+			cached_config.ui_font.size, 1, 100);
 		config_changed = config_changed or changed;
 
-		changed, cached_config.font.bold = imgui.checkbox(cached_language.bold,
-			cached_config.font.bold);
+		changed, cached_config.ui_font.bold = imgui.checkbox(cached_language.bold,
+			cached_config.ui_font.bold);
 		config_changed = config_changed or changed;
 
-		changed, cached_config.font.italic = imgui.checkbox(cached_language.italic,
-			cached_config.font.italic);
+		changed, cached_config.ui_font.italic = imgui.checkbox(cached_language.italic,
+			cached_config.ui_font.italic);
 		config_changed = config_changed or changed;
 
 		imgui.tree_pop();

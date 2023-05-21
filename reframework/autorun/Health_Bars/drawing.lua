@@ -36,7 +36,7 @@ local os = os;
 this.font = nil;
 
 function this.init_font()
-	local cached_config = config.current_config.font;
+	local cached_config = config.current_config.ui_font;
 	this.font = d2d.Font.new(cached_config.family, cached_config.size, cached_config.bold, cached_config.italic);
 end
 
