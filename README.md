@@ -31,7 +31,8 @@ Mod for Resident Evil 4 Remake that draws health bars on top of enemies' heads.
     * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84);
     * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/RE4-Health-Bars) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/residentevil42023/mods/12). Use with caution!
 5. Extract the mod from the archive and copy it in Resident Evil 4 folder. Final path should look like this: `/RESIDENT EVIL 4 BIOHAZARD RE4/reframework/`  
-   > There should be three folders in the REFframework folder: `autorun`, `data` and `font`.
+
+> There should be three folders in the REFframework folder: `autorun`, `data` and `font`.
 
 # How to compile?
 **Prerequisites:**
