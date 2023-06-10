@@ -3,7 +3,7 @@
    <p align="center">
         <b>English</b> | <a href="README_CN.md">简体中文</a>
    </p>
-	<p align="center">Mod for Resident Evil 4 Remake that draws health bars on top of enemies' heads.</p>
+	<p align="center">Mod that draws health bars on top of enemies' heads.</p>
 </p>
 
 <p align="center">
