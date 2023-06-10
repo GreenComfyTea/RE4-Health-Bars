@@ -7,9 +7,6 @@
    <p align="center">If for some reason (cheating, for example) you messed up your loadouts and now when you try to open "Equipment Loadouts" menu the game crashes, you can use this mod to wipe all loadouts.</p>
 </p>
 
-Language：  
-**English** | [简体中文](README_CN.md) 
-
 <p align="center">
 	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/contributors">
 		<img alt="Contributors" src="https://img.shields.io/github/contributors/greencomfytea/re4-health-bars" />
