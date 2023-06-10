@@ -113,8 +113,8 @@
 * **[Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84)**
 
 # Requirements
-1. [REFramework](https://www.nexusmods.com/residentevil42023/mods/12) (v1.460 or above);
-2. [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83) (v0.4.0 or above).
+1. [REFramework](https://www.nexusmods.com/residentevil42023/mods/12) (v1.460+);
+2. [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83) (v0.4.0+).
 
 # How to install:
 1. Install [REFramework](https://www.nexusmods.com/residentevil42023/mods/12);
