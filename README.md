@@ -4,7 +4,6 @@
         <b>English</b> | <a href="README_CN.md">简体中文</a>
    </p>
 	<p align="center">Mod for Resident Evil 4 Remake that draws health bars on top of enemies' heads.</p>
-   <p align="center">If for some reason (cheating, for example) you messed up your loadouts and now when you try to open "Equipment Loadouts" menu the game crashes, you can use this mod to wipe all loadouts.</p>
 </p>
 
 <p align="center">
