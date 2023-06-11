@@ -1,8 +1,8 @@
 <p align="center">
 	<h2 align="center"><b>为生化危机4Remake设计的"生命值(血条)"模组 简体中文翻译版</b></h2>
-   <p align="center">
-        <a href="README.md">English</a> | <b>简体中文</b>
-   </p>
+	<p align="center">
+		<a href="README.md">English</a> | <b>简体中文</b>
+	</p>
 	<p align="center">为生化危机4Remake设计的"生命值(血条)"模组。</p>
 </p>
 
@@ -22,14 +22,14 @@
 	<a href="https://github.com/greencomfytea/re4-health-bars/pulls">
 		<img alt="Pull Requests Closed" src="https://custom-icon-badges.demolab.com/github/issues-pr-closed/greencomfytea/re4-health-bars?logo=git-pull-request-closed" />
 	</a>
-<br>
+	<br>
 	<a href="https://www.nexusmods.com/residentevil42023/mods/12">
 		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20v1.460%2B-green?logo=package-dependencies" />
 	</a>
    	<a href="https://www.nexusmods.com/residentevil42023/mods/83">
 		<img alt="In-Game Menu Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20Direct2D%20v0.4.0%2B-yellow?logo=package-dependencies" />
 	</a>
-<br>
+	<br>
 	<a href="https://github.com/greencomfytea/re4-health-bars/blob/main/LICENSE">
 		<img alt="License" src="https://custom-icon-badges.demolab.com/github/license/greencomfytea/re4-health-bars?logo=law" />
 	</a>
@@ -45,17 +45,17 @@
 	<a href="">
 		<img alt="Maintenance" src="https://custom-icon-badges.demolab.com/maintenance/yes/2023?logo=tools" />
 	</a>
-<br>
+	<br>
 	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
 		<img alt="Last Commit" src="https://custom-icon-badges.demolab.com/github/last-commit/greencomfytea/re4-health-bars?logo=git-commit" />
 	</a>
 	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
 		<img alt="Commits Since" src="https://custom-icon-badges.demolab.com/github/commits-since/greencomfytea/re4-health-bars/latest?logo=git-commit" />
 	</a>
-<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
+	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
 		<img alt="Commits" src="https://custom-icon-badges.demolab.com/github/commit-activity/t/greencomfytea/re4-health-bars?logo=git-commit" />
 	</a>
-<br>
+	<br>
 	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
 		<img alt="Commit Activity (Year)" src="https://custom-icon-badges.demolab.com/github/commit-activity/y/greencomfytea/re4-health-bars?logo=pulse" />
 	</a>
@@ -65,7 +65,7 @@
 	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
 		<img alt="Commit Activity (Week)" src="https://custom-icon-badges.demolab.com/github/commit-activity/w/greencomfytea/re4-health-bars?logo=pulse" />
 	</a>
-<br>
+	<br>
 	<a href="">
 		<img alt="Repo Size" src="https://custom-icon-badges.demolab.com/github/repo-size/greencomfytea/re4-health-bars?logo=database" />
 	</a>
@@ -87,7 +87,7 @@
 	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/traffic">
 		<img alt="Hits" src="https://custom-icon-badges.demolab.com/endpoint?url=https://hits.dwyl.com/greencomfytea/re4-health-bars.json?color=blue&logo=eye" />
 	</a>
-<br>
+	<br>
 	<a href="https://www.nexusmods.com/residentevil42023/mods/84">
 		<img alt="Website" src="https://custom-icon-badges.demolab.com/website?down_color=red&down_message=down&up_color=brightgreen&up_message=up&logo=link&url=https://www.nexusmods.com/residentevil42023/mods/84" />
 	</a>
@@ -100,7 +100,7 @@
 	<a href="https://www.twitch.tv/greencomfytea">
 		<img alt="Twitch" src="https://img.shields.io/twitch/status/greencomfytea?logo=twitch" />
 	</a>
-<br>
+	<br>
 	<a href="https://github.com/greencomfytea">
 		<img alt="Author" src="https://custom-icon-badges.demolab.com/badge/author-GreenComfyTea-green?logo=person" />
 	</a>
