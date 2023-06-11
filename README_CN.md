@@ -8,98 +8,107 @@
 
 <p align="center">
 	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/contributors">
-		<img alt="Contributors" src="https://img.shields.io/github/contributors/greencomfytea/re4-health-bars" />
+		<img alt="Contributors" src="https://custom-icon-badges.demolab.com/github/contributors/greencomfytea/re4-health-bars?logo=person-add" />
 	</a>
 	<a href="https://github.com/greencomfytea/re4-health-bars/issues">
-		<img alt="Issues" src="https://img.shields.io/github/issues/greencomfytea/re4-health-bars" />
+		<img alt="Issues" src="https://custom-icon-badges.demolab.com/github/issues/greencomfytea/re4-health-bars?logo=issue-opened" />
 	</a>
 	<a href="https://github.com/greencomfytea/re4-health-bars/issues">
-		<img alt="Issues Closed" src="https://img.shields.io/github/issues-closed/greencomfytea/re4-health-bars" />
+		<img alt="Issues Closed" src="https://custom-icon-badges.demolab.com/github/issues-closed/greencomfytea/re4-health-bars?logo=issue-closed" />
 	</a>
 	<a href="https://github.com/greencomfytea/re4-health-bars/pulls">
-		<img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/greencomfytea/re4-health-bars" />
+		<img alt="Pull Requests" src="https://custom-icon-badges.demolab.com/github/issues-pr/greencomfytea/re4-health-bars?logo=git-pull-request" />
 	</a>
 	<a href="https://github.com/greencomfytea/re4-health-bars/pulls">
-		<img alt="Pull Requests Closed" src="https://img.shields.io/github/issues-pr-closed/greencomfytea/re4-health-bars" />
+		<img alt="Pull Requests Closed" src="https://custom-icon-badges.demolab.com/github/issues-pr-closed/greencomfytea/re4-health-bars?logo=git-pull-request-closed" />
 	</a>
-</p>
-<p align="center">
-	<a href="https://github.com/greencomfytea/re4-health-bars/blob/main/LICENSE">
-		<img alt="License" src="https://img.shields.io/github/license/greencomfytea/re4-health-bars" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/releases">
-		<img alt="Release Version" src="https://img.shields.io/github/v/release/greencomfytea/re4-health-bars" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/releases">
-		<img alt="Release Date" src="https://img.shields.io/github/release-date/greencomfytea/re4-health-bars" />
-	</a>
-	<a href="">
-		<img alt="Platform" src="https://img.shields.io/badge/platform-win%20%7C%20linux%20%7C%20steam%20deck-lightgrey" />
-	</a>
-	<a href="">
-		<img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2023" />
-	</a>
-</p>
-<p align="center">
+<br>
 	<a href="https://www.nexusmods.com/residentevil42023/mods/12">
-		<img alt="REFramework Dependency" src="https://img.shields.io/badge/dependency-REFramework%20v1.460%2B-green" />
+		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20v1.460%2B-green?logo=package-dependencies" />
 	</a>
    	<a href="https://www.nexusmods.com/residentevil42023/mods/83">
-		<img alt="In-Game Menu Dependency" src="https://img.shields.io/badge/dependency-REFramework%20Direct2D%20v0.4.0%2B-yellow" />
+		<img alt="In-Game Menu Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20Direct2D%20v0.4.0%2B-yellow?logo=package-dependencies" />
 	</a>
-</p>
-<p align="center">
-	<a href="">
-		<img alt="Repo Size" src="https://img.shields.io/github/repo-size/greencomfytea/re4-health-bars" />
+<br>
+	<a href="https://github.com/greencomfytea/re4-health-bars/blob/main/LICENSE">
+		<img alt="License" src="https://custom-icon-badges.demolab.com/github/license/greencomfytea/re4-health-bars?logo=law" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/releases">
+		<img alt="Release Version" src="https://custom-icon-badges.demolab.com/github/v/release/greencomfytea/re4-health-bars?logo=tag" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/releases">
+		<img alt="Release Date" src="https://custom-icon-badges.demolab.com/github/release-date/greencomfytea/re4-health-bars?logo=clock" />
 	</a>
 	<a href="">
-		<img alt="Goto Counter" src="https://img.shields.io/github/search/greencomfytea/re4-health-bars/goto" />
+		<img alt="Platform" src="https://custom-icon-badges.demolab.com/badge/platform-win%20%7C%20linux%20%7C%20steam%20deck-blue?logo=device-desktop" />
+	</a>
+	<a href="">
+		<img alt="Maintenance" src="https://custom-icon-badges.demolab.com/maintenance/yes/2023?logo=tools" />
+	</a>
+<br>
+	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
+		<img alt="Last Commit" src="https://custom-icon-badges.demolab.com/github/last-commit/greencomfytea/re4-health-bars?logo=git-commit" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
+		<img alt="Commits Since" src="https://custom-icon-badges.demolab.com/github/commits-since/greencomfytea/re4-health-bars/latest?logo=git-commit" />
+	</a>
+<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
+		<img alt="Commits" src="https://custom-icon-badges.demolab.com/github/commit-activity/t/greencomfytea/re4-health-bars?logo=git-commit" />
+	</a>
+<br>
+	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
+		<img alt="Commit Activity (Year)" src="https://custom-icon-badges.demolab.com/github/commit-activity/y/greencomfytea/re4-health-bars?logo=pulse" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
+		<img alt="Commit Activity (Month)" src="https://custom-icon-badges.demolab.com/github/commit-activity/m/greencomfytea/re4-health-bars?logo=pulse" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
+		<img alt="Commit Activity (Week)" src="https://custom-icon-badges.demolab.com/github/commit-activity/w/greencomfytea/re4-health-bars?logo=pulse" />
+	</a>
+<br>
+	<a href="">
+		<img alt="Repo Size" src="https://custom-icon-badges.demolab.com/github/repo-size/greencomfytea/re4-health-bars?logo=database" />
+	</a>
+	<a href="">
+		<img alt="Goto Counter" src="https://custom-icon-badges.demolab.com/github/search/greencomfytea/re4-health-bars/goto?logo=git-compare" />
 	</a>
 	<a href="https://github.com/sponsors/greencomfytea">
-		<img alt="Sponsors" src="https://img.shields.io/github/sponsors/greencomfytea" />
+		<img alt="Sponsors" src="https://custom-icon-badges.demolab.com/github/sponsors/greencomfytea?logo=heart" />
 	</a>
-	<a href="">
-		<img alt="Watchers" src="https://img.shields.io/github/watchers/greencomfytea/re4-health-bars" />
+	<a href="https://github.com/GreenComfyTea/re4-health-bars/watchers">
+		<img alt="Watchers" src="https://custom-icon-badges.demolab.com/github/watchers/greencomfytea/re4-health-bars?logo=eye" />
 	</a>
 	<a href="https://github.com/greencomfytea/re4-health-bars/forks">
-		<img alt="Forks" src="https://img.shields.io/github/forks/greencomfytea/re4-health-bars" />
+		<img alt="Forks" src="https://custom-icon-badges.demolab.com/github/forks/greencomfytea/re4-health-bars?logo=repo-forked" />
 	</a>
-	<a href="">
-		<img alt="Stars" src="https://img.shields.io/github/stars/greencomfytea/re4-health-bars" />
+	<a href="https://github.com/greencomfytea/re4-health-bars/stargazers">
+		<img alt="Stars" src="https://custom-icon-badges.demolab.com/github/stars/greencomfytea/re4-health-bars?logo=star" />
 	</a>
-</p>
-<p align="center">
-	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
-		<img alt="Last Commit" src="https://img.shields.io/github/last-commit/greencomfytea/re4-health-bars" />
+	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/traffic">
+		<img alt="Hits" src="https://custom-icon-badges.demolab.com/endpoint?url=https://hits.dwyl.com/greencomfytea/re4-health-bars.json?color=blue&logo=eye" />
 	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
-		<img alt="Commits Since" src="https://img.shields.io/github/commits-since/greencomfytea/re4-health-bars/latest" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
-		<img alt="Commit Activity" src="https://img.shields.io/github/commit-activity/t/greencomfytea/re4-health-bars" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
-		<img alt="Commit Activity (Year)" src="https://img.shields.io/github/commit-activity/y/greencomfytea/re4-health-bars" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
-		<img alt="Commit Activity (Month)" src="https://img.shields.io/github/commit-activity/m/greencomfytea/re4-health-bars" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
-		<img alt="Commit Activity (Week)" src="https://img.shields.io/github/commit-activity/w/greencomfytea/re4-health-bars" />
-	</a>
-</p>
-<p align="center">
+<br>
 	<a href="https://www.nexusmods.com/residentevil42023/mods/84">
-		<img alt="Website" src="https://img.shields.io/website?down_color=red&down_message=down&up_color=green&up_message=up&url=https://www.nexusmods.com/residentevil42023/mods/84" />
+		<img alt="Website" src="https://custom-icon-badges.demolab.com/website?down_color=red&down_message=down&up_color=brightgreen&up_message=up&logo=link&url=https://www.nexusmods.com/residentevil42023/mods/84" />
 	</a>
 	<a href="https://github.com/greencomfytea?tab=followers">
-		<img alt="Followers" src="https://img.shields.io/github/followers/greencomfytea" />
+		<img alt="Followers" src="https://custom-icon-badges.demolab.com/github/followers/greencomfytea?logo=people" />
 	</a>
 	<a href="https://twitter.com/greencomfytea">
-		<img alt="Twitter" src="https://img.shields.io/twitter/follow/greencomfytea" />
+		<img alt="Twitter" src="https://img.shields.io/twitter/follow/greencomfytea?logo=twitter" />
 	</a>
 	<a href="https://www.twitch.tv/greencomfytea">
-		<img alt="Twitch" src="https://img.shields.io/twitch/status/greencomfytea" />
+		<img alt="Twitch" src="https://img.shields.io/twitch/status/greencomfytea?logo=twitch" />
+	</a>
+<br>
+	<a href="https://github.com/greencomfytea">
+		<img alt="Author" src="https://custom-icon-badges.demolab.com/badge/author-GreenComfyTea-green?logo=person" />
+	</a>
+	<a href="https://github.com/topics/open-source">
+		<img alt="Open Source" src="https://img.shields.io/badge/open%20source-%20yes-brightgreen?logo=openvpn" />
+	</a>
+	<a href="https://cursey.github.io/reframework-book/index.html#lua-scripting">
+		<img alt="Written in" src="https://custom-icon-badges.demolab.com/badge/written in-lua-000080?logo=terminal" />
 	</a>
 </p>
 
