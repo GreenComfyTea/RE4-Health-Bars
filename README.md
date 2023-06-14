@@ -45,14 +45,39 @@
    	<a href="https://www.nexusmods.com/residentevil42023/mods/83">
 		<img alt="In-Game Menu Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20Direct2D%20v0.4.0%2B-yellow?logo=package-dependencies" />
 	</a>
+		<br>
+	<br>
+	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
+		<img alt="Commits" src="https://custom-icon-badges.demolab.com/github/commit-activity/t/greencomfytea/re4-health-bars?logo=git-commit" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
+		<img alt="Last Commit" src="https://custom-icon-badges.demolab.com/github/last-commit/greencomfytea/re4-health-bars?logo=git-commit" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
+		<img alt="Commits Since" src="https://custom-icon-badges.demolab.com/github/commits-since/greencomfytea/re4-health-bars/latest?logo=git-commit" />
+	</a>
+	<br>
+	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
+		<img alt="Commit Activity (Year)" src="https://custom-icon-badges.demolab.com/github/commit-activity/y/greencomfytea/re4-health-bars?logo=pulse" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
+		<img alt="Commit Activity (Month)" src="https://custom-icon-badges.demolab.com/github/commit-activity/m/greencomfytea/re4-health-bars?logo=pulse" />
+	</a>
+	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
+		<img alt="Commit Activity (Week)" src="https://custom-icon-badges.demolab.com/github/commit-activity/w/greencomfytea/re4-health-bars?logo=pulse" />
+	</a>
 	<br>
 	<br>
 	<a href="">
 		<img alt="Repo Size" src="https://custom-icon-badges.demolab.com/github/repo-size/greencomfytea/re4-health-bars?logo=database" />
 	</a>
 	<a href="">
+		<img alt="Line Count" src="https://sloc.xyz/github/greencomfytea/re4-health-bars" />
+	</a>
+	<a href="">
 		<img alt="Goto Counter" src="https://custom-icon-badges.demolab.com/github/search/greencomfytea/re4-health-bars/goto?logo=git-compare" />
 	</a>
+	<br>
 	<a href="https://github.com/sponsors/greencomfytea">
 		<img alt="Sponsors" src="https://custom-icon-badges.demolab.com/github/sponsors/greencomfytea?logo=heart" />
 	</a>
@@ -67,26 +92,6 @@
 	</a>
 	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/traffic">
 		<img alt="Hits" src="https://custom-icon-badges.demolab.com/endpoint?url=https://hits.dwyl.com/greencomfytea/re4-health-bars.json?color=blue&logo=eye" />
-	</a>
-	<br>
-	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
-		<img alt="Last Commit" src="https://custom-icon-badges.demolab.com/github/last-commit/greencomfytea/re4-health-bars?logo=git-commit" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
-		<img alt="Commits Since" src="https://custom-icon-badges.demolab.com/github/commits-since/greencomfytea/re4-health-bars/latest?logo=git-commit" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/commits/main">
-		<img alt="Commits" src="https://custom-icon-badges.demolab.com/github/commit-activity/t/greencomfytea/re4-health-bars?logo=git-commit" />
-	</a>
-	<br>
-	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
-		<img alt="Commit Activity (Year)" src="https://custom-icon-badges.demolab.com/github/commit-activity/y/greencomfytea/re4-health-bars?logo=pulse" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
-		<img alt="Commit Activity (Month)" src="https://custom-icon-badges.demolab.com/github/commit-activity/m/greencomfytea/re4-health-bars?logo=pulse" />
-	</a>
-	<a href="https://github.com/greencomfytea/re4-health-bars/graphs/commit-activity">
-		<img alt="Commit Activity (Week)" src="https://custom-icon-badges.demolab.com/github/commit-activity/w/greencomfytea/re4-health-bars?logo=pulse" />
 	</a>
 	<br>
 	<br>
