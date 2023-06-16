@@ -142,10 +142,10 @@
 >**:pushpin: Steam Deck:** I've seen people getting it working but I don't have the exact instructions. You will have to figure it out yourself and/or search the nexus pages for information ([REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26?tab=description), [REFramework Direct2D](https://www.nexusmods.com/monsterhunterrise/mods/134)).
 
 
-4. Download the mod:
+3. Download the mod:
     * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84);
     * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/RE4-Health-Bars) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/residentevil42023/mods/12). Use with caution!
-5. Extract the mod from the archive and copy it in Resident Evil 4 folder. Final path should look like this: `/RESIDENT EVIL 4 BIOHAZARD RE4/reframework/`  
+4. Extract the mod from the archive and copy it in Resident Evil 4 folder. Final path should look like this: `/RESIDENT EVIL 4 BIOHAZARD RE4/reframework/`  
 
 > There should be three folders in the REFframework folder: `autorun`, `data` and `font`.
 
