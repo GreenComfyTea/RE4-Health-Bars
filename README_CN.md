@@ -134,7 +134,14 @@
 
 # 如何安装？:
 1. 先安装[REFramework](https://www.nexusmods.com/residentevil42023/mods/12);
-2. (可选，汉化版必须) 再安装 [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83);
+2. 再安装 [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83);
+>**:pushpin: Windows:** 工作正常。  
+  
+>**:pushpin: Linux:** 最新版本的Proton(实验版本，Experimental。译者没有Steam Deck或者带独显的Linux，仅供参考。)似乎也能使mod正常工作 (https://github.com/cursey/reframework-d2d/issues/5)。
+  
+>**:pushpin: Steam Deck:** 我见到有人报告mod可以正常工作，但没有确切信息来说明是否可靠。 您可能需要自行在nexus查找资料和解决方案来确保mod正常运行。([REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26?tab=description), [REFramework Direct2D](https://www.nexusmods.com/monsterhunterrise/mods/134)).
+   
+
 3. 下载这些mod:
     * 官方所发布的下载地址是 [Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84);
     * 每晚构建版本可以在[此存储库](https://github.com/GreenComfyTea/RE4-Health-Bars)中获取，可能包含错误功能、屏幕上的调试信息、错误和可能需要最新的[每晚构建版本](https://github.com/praydog/REFramework-nightly/releases)的[REFramework](https://www.nexusmods.com/residentevil42023/mods/12)。请谨慎使用！  
