@@ -91,7 +91,7 @@ this.default_language = {
 
 		hide_if_dead = "Hide if Dead",
 		hide_if_full_health = "Hide if Full Health",
-		hide_if_no_ray_to_player = "Hide if No Ray to Player",
+		hide_if_no_ray_to_player = "Hide if Enemy is behind Obstacles",
 		hide_if_no_update_function_is_being_called = "Hide if No Update Function is Being Called",
 
 		opacity_falloff = "Opacity Falloff",
