@@ -494,7 +494,7 @@ function this.on_notify_hit_damage(damage_info, enemy_context)
 end
 
 function this.on_notify_dead(damage_info, enemy_context)
-	if enemy_context == nil then
+	if damage_info == nil then
 		customization_menu.status = "[enemy.on_notify_dead] No Damage Info";
 		--return;
 	end

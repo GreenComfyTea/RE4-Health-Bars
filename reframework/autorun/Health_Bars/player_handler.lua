@@ -112,8 +112,8 @@ function this.update_aim_target(player_context)
 		return;
 	end
 
-	local enemy = enemy_handler.enemy_body_list[aim_target_body];
-	if enemy == nil then
+	local target_enemy = enemy_handler.enemy_body_list[aim_target_body];
+	if target_enemy == nil then
 		customization_menu.status = "[player.update_aim_target] No Aim Target Enemy";
 		return;
 	end
@@ -127,7 +127,7 @@ function this.update_aim_target(player_context)
 	end
 	
 	if cached_config.apply_time_duration_on_aim_target then
-		enemy_handler.update_last_reset_time(enemy);
+		enemy_handler.update_last_reset_time(target_enemy);
 	end
 end
 
