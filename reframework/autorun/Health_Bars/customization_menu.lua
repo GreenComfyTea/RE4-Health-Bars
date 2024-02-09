@@ -296,7 +296,7 @@ function this.draw()
 			cached_config.settings.hide_if_full_health);
 		config_changed = config_changed or changed;
 
-		changed, cached_config.settings.hide_if_no_ray_to_player = imgui.checkbox(cached_language.hide_if_no_ray_to_player,
+		changed, cached_config.settings.hide_if_no_ray_to_player = imgui.checkbox(cached_language.hide_if_enemy_is_behind_obstacles,
 			cached_config.settings.hide_if_no_ray_to_player);
 		config_changed = config_changed or changed;
 
