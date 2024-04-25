@@ -129,7 +129,7 @@
 * **[Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84)**.  
 
 # 模组前置需求  
-1. **[REFramework](https://www.nexusmods.com/residentevil42023/mods/12) (**[Nightly](https://github.com/praydog/REFramework-nightly/releases)** v1.5.4或者更高版本);
+1. **[REFramework](https://www.nexusmods.com/residentevil42023/mods/12)** (**[Nightly](https://github.com/praydog/REFramework-nightly/releases)** v1.5.4或者更高版本);
 2. **[REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83)** (v1.0.1或者更高版本).
 
 # 如何安装？:
