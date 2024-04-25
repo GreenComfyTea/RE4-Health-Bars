@@ -1,7 +1,7 @@
 <p align="center">
 	<h2 align="center"><b>为生化危机4Remake设计的"生命值(血条)"模组 简体中文翻译版</b></h2>
 	<p align="center">
-		<a href="README.md">English</a> | <b>简体中文</b>
+		<b><a href="README.md">English</a></b> | <b>简体中文</b>
 	</p>
 	<p align="center">为生化危机4Remake设计的"生命值(血条)"模组。</p>
 </p>
@@ -126,15 +126,16 @@
 </p>
 
 # 原始下载链接  
-* **[Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84)**  
+* **[Nexus Mods](https://www.nexusmods.com/residentevil42023/mods/84)**.  
 
 # 模组前置需求  
-1. [REFramework](https://www.nexusmods.com/residentevil42023/mods/12) ([Nightly](https://github.com/praydog/REFramework-nightly/releases) v1.5.4或者更高版本);
-2. [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83) (v1.0.1或者更高版本).
+1. **[REFramework](https://www.nexusmods.com/residentevil42023/mods/12) (**[Nightly](https://github.com/praydog/REFramework-nightly/releases)** v1.5.4或者更高版本);
+2. **[REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83)** (v1.0.1或者更高版本).
 
 # 如何安装？:
-1. 先安装[REFramework](https://www.nexusmods.com/residentevil42023/mods/12);
-2. 再安装 [REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83);
+1. 先安装**[REFramework](https://github.com/praydog/REFramework-nightly/releases)**;
+2. 再安装 **[REFramework Direct2D](https://www.nexusmods.com/residentevil42023/mods/83)**;
+
 >**:pushpin: Windows:** 工作正常。  
   
 >**:pushpin: Linux:** 最新版本的Proton(实验版本，Experimental。译者没有Steam Deck或者带独显的Linux，仅供参考。)似乎也能使mod正常工作 (https://github.com/cursey/reframework-d2d/issues/5)。
