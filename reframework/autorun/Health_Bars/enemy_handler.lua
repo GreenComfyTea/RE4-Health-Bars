@@ -8,6 +8,7 @@ local customization_menu;
 local player_handler;
 local gui_handler;
 local time;
+local error_handler;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -52,46 +53,37 @@ this.vital_states = {
 
 local update_time_limit = 1;
 
-local character_manager_type_def = sdk.find_type_definition("chainsaw.CharacterManager");
-local get_enemy_context_list_method = character_manager_type_def:get_method("get_EnemyContextList");
-local get_player_context_method = character_manager_type_def:get_method("getPlayerContextRef");
-
-local enemy_context_list_type_def = get_enemy_context_list_method:get_return_type();
-local enemy_context_list_get_count_method = enemy_context_list_type_def:get_method("get_Count");
-local enemy_context_list_get_item_method = enemy_context_list_type_def:get_method("get_Item");
-
 local enemy_base_context_type_def = sdk.find_type_definition("chainsaw.EnemyBaseContext");
 local get_position_method = enemy_base_context_type_def:get_method("get_Position");
 local get_has_ray_to_player_method = enemy_base_context_type_def:get_method("get_HasRayToPlayer");
 local get_hit_point_method = enemy_base_context_type_def:get_method("get_HitPoint");
 local get_body_game_object_method = enemy_base_context_type_def:get_method("get_BodyGameObject");
 local release_method = enemy_base_context_type_def:get_method("release");
-local get_is_combat_ready_method = enemy_base_context_type_def:get_method("get_IsCombatReady");
 local get_is_lively_method = enemy_base_context_type_def:get_method("get_IsLively");
-local get_body_updater_method = enemy_base_context_type_def:get_method("get_BodyUpdater");
-local get_body_scale_method = enemy_base_context_type_def:get_method("get_BodyScale");
 
--- Ramon Salazar
-local ch1_f6_z0_type_def = sdk.find_type_definition("chainsaw.Ch1f6z0Context");
-local ch1_f6_z0_get_is_combat_ready_method = ch1_f6_z0_type_def:get_method("get_IsCombatReady");
+local game_object_type_def = get_body_game_object_method:get_return_type();
+local get_transform_method = game_object_type_def:get_method("get_Transform");
 
-local character_body_body_updater_type_def = get_body_updater_method:get_return_type();
-local get_character_controller_method = character_body_body_updater_type_def:get_method("get_CharacterController");
+local transform_type_def = get_transform_method:get_return_type();
+local get_joint_by_name_method = transform_type_def:get_method("getJointByName");
 
-local character_controller_type_def = get_character_controller_method:get_return_type();
-local get_height_method = character_controller_type_def:get_method("get_Height");
+local joint_type_def = get_joint_by_name_method:get_return_type();
+local get_position_method = joint_type_def:get_method("get_Position");
 
 local hit_point_type_def = get_hit_point_method:get_return_type();
 local get_default_hit_point_method = hit_point_type_def:get_method("get_DefaultHitPoint");
 local get_current_hit_point_method = hit_point_type_def:get_method("get_CurrentHitPoint");
 local get_is_live_method = hit_point_type_def:get_method("get_IsLive");
 
-local player_base_context_type_def = sdk.find_type_definition("chainsaw.PlayerBaseContext");
-local get_player_position_method = player_base_context_type_def:get_method("get_Position");
-
 local enemy_manager = sdk.find_type_definition("chainsaw.EnemyManager");
 local notify_hit_damage_method = enemy_manager:get_method("notifyHitDamage");
 local notify_dead_method = enemy_manager:get_method("notifyDead");
+
+-- Ramon Salazar
+local ch1_f6_z0_type_def = sdk.find_type_definition("chainsaw.Ch1f6z0Context");
+local ch1_f6_z0_get_is_combat_ready_method = ch1_f6_z0_type_def:get_method("get_IsCombatReady");
+
+
 
 function this.get_vital_state_name(index)
 	for state_name, state_index in pairs(this.vital_states) do
@@ -123,8 +115,9 @@ function this.new(enemy_context)
 	enemy.body = nil;
 
 	this.update_health(enemy);
-	this.update_height(enemy);
 	this.update_body_game_object(enemy);
+	this.update_head_joint(enemy);
+	this.update_position(enemy);
 
 	this.enemy_list[enemy_context] = enemy;
 
@@ -157,14 +150,14 @@ end
 
 function this.update_health(enemy)
 	if enemy == nil then
-		customization_menu.status = "[enemy.update_health] No Enemy";
+		error_handler.report("enemy_handler.update_health", "No Enemy");
 		return;
 	end
 
 	local hit_point = get_hit_point_method:call(enemy.enemy_context);
 
 	if hit_point == nil then
-		customization_menu.status = "[enemy.update_health] No Enemy Hit Point";
+		error_handler.report("enemy_handler.update_health", "No HitPoint");
 		return;
 	end
 
@@ -173,13 +166,13 @@ function this.update_health(enemy)
 	local is_live = get_is_live_method:call(hit_point);
 
 	if default_hit_point == nil then
-		customization_menu.status = "[enemy.update_health] No Enemy Default Hit Point";
+		error_handler.report("enemy_handler.update_health", "No DefaultHitPoint");
 	else
 		enemy.max_health = default_hit_point;
 	end
 
 	if current_hit_point == nil then
-		customization_menu.status = "[enemy.update_health] No Enemy Current Hit Point";
+		error_handler.report("enemy_handler.update_health", "No CurrentHitPoint");
 	else
 		enemy.health = current_hit_point;
 	end
@@ -191,7 +184,7 @@ function this.update_health(enemy)
 	end
 
 	if is_live == nil then
-		customization_menu.status = "[enemy.update_health] No Enemy IsLive";
+		error_handler.report("enemy_handler.update_health", "No IsLive");
 	else
 		enemy.is_live = is_live;
 	end
@@ -199,14 +192,14 @@ end
 
 function this.update_has_ray_to_player(enemy)
 	if enemy == nil then
-		customization_menu.status = "[enemy.has_ray_to_player] No Enemy";
+		error_handler.report("enemy_handler.update_has_ray_to_player", "No Enemy");
 		return;
 	end
 
 	local has_ray_to_player = get_has_ray_to_player_method:call(enemy.enemy_context);
 
 	if has_ray_to_player == nil then
-		customization_menu.status = "[enemy.has_ray_to_player] No Enemy HasRayToPlayer";
+		error_handler.report("enemy_handler.update_has_ray_to_player", "No HasRayToPlayer");
 		return;
 	end
 
@@ -215,7 +208,7 @@ end
 
 function this.update_last_reset_time(enemy)
 	if enemy == nil then
-		customization_menu.status = "[enemy.update_last_reset_time] No Enemy";
+		error_handler.report("enemy_handler.update_last_reset_time", "No Enemy");
 		return;
 	end
 	
@@ -236,44 +229,34 @@ function this.update_all_periodics()
 		end
 
 		this.update_has_ray_to_player(enemy);
-		this.update_height(enemy);
-
 		::continue::
 	end
 end
 
 function this.update_position(enemy)
-	if enemy == nil then
-		customization_menu.status = "[enemy.update_position] No Enemy";
-		return;
-	end
-	
-	local position = get_position_method:call(enemy.enemy_context);
-
-	if position == nil then
-		customization_menu.status = "[enemy.update_position] No Enemy Position";
+	if(enemy.head_joint == nil) then
+		error_handler.report("enemy_handler.update_position", "No Head Joint");
 		return;
 	end
 
-	enemy.position = position;
-
-	if player_handler.player.position == nil then
-		customization_menu.status = "[enemy.update_position] No Player Position";
+	local head_joint_position = get_position_method:call(enemy.head_joint);
+	if head_joint_position == nil then
+		error_handler.report("enemy_handler.update_position", "No Head Joint Position");
 		return;
 	end
-
-	enemy.distance = (player_handler.player.position - position):length();
+	enemy.position = head_joint_position;
+	enemy.distance = (player_handler.player.position - head_joint_position):length();
 end
 
 function this.update_body_game_object(enemy)
 	if enemy == nil then
-		customization_menu.status = "[enemy.update_body_game_object] No Enemy";
+		error_handler.report("enemy_handler.update_body_game_object", "No Enemy");
 		return;
 	end
 
 	local body = get_body_game_object_method:call(enemy.enemy_context);
 	if body == nil then
-		customization_menu.status = "[enemy.update_body_game_object] No Enemy Body Game Object";
+		error_handler.report("enemy_handler.update_position", "No Body");
 		return;
 	end
 
@@ -282,39 +265,28 @@ function this.update_body_game_object(enemy)
 	this.enemy_body_list[body] = enemy;
 end
 
-function this.update_height(enemy)
-	if enemy == nil then
-		customization_menu.status = "[enemy.update_height] No Enemy";
+function this.update_head_joint(enemy)
+	if enemy.body == nil then
+		error_handler.report("enemy_handler.update_head_joint", "No Body");
 		return;
 	end
 
-	local body_updater = get_body_updater_method:call(enemy.enemy_context);
-	if body_updater == nil then
-		customization_menu.status = "[enemy.update_height] No Body Updater";
+	local enemy_transform = get_transform_method:call(enemy.body);
+	if enemy_transform == nil then
+		error_handler.report("enemy_handler.update_head_joint", "No Transform");
 		return;
 	end
 
-	local character_controller = get_character_controller_method:call(body_updater);
-	if character_controller == nil then
-		customization_menu.status = "[enemy.update_height] No Character Controller";
+	local joint = get_joint_by_name_method:call(enemy_transform, "head")
+	or get_joint_by_name_method:call(enemy_transform, "Head")
+	or get_joint_by_name_method:call(enemy_transform, "root");
+
+	if joint == nil then
+		error_handler.report("enemy_handler.update_head_joint", "No Head Joint");
 		return;
 	end
 
-	local height = get_height_method:call(character_controller);
-	if height == nil then
-		customization_menu.status = "[enemy.update_height] No Height";
-		return;
-	end
-
-	local body_scale = get_body_scale_method:call(enemy.enemy_context);
-	if body_scale == nil then
-		customization_menu.status = "[enemy.update_height] No Body Scale";
-		enemy.height = height;
-		return;
-	end
-
-	enemy.body_scale = body_scale;
-	enemy.height = height * body_scale;
+	enemy.head_joint = joint;
 end
 
 function this.draw_enemies()
@@ -456,7 +428,7 @@ end
 
 function this.on_enemy_update(enemy_context)
 	if enemy_context == nil then
-		customization_menu.status = "[enemy.on_get_is_lively] No Enemy Context";
+		error_handler.report("enemy_handler.on_enemy_update", "No EnemyContext");
 		return;
 	end
 
@@ -467,12 +439,12 @@ function this.on_notify_hit_damage(damage_info, enemy_context)
 	local cached_config = config.current_config.settings;
 
 	if damage_info == nil then
-		customization_menu.status = "[enemy.on_notify_hit_damage] No Damage Info";
+		error_handler.report("enemy_handler.on_notify_hit_damage", "No DamageInfo");
 		--return;
 	end
 	
 	if enemy_context == nil then
-		customization_menu.status = "[enemy.on_notify_hit_damage] No Enemy Context";
+		error_handler.report("enemy_handler.on_notify_hit_damage", "No EnemyContext");
 		return;
 	end
 
@@ -495,12 +467,12 @@ end
 
 function this.on_notify_dead(damage_info, enemy_context)
 	if damage_info == nil then
-		customization_menu.status = "[enemy.on_notify_dead] No Damage Info";
+		error_handler.report("enemy_handler.on_notify_dead", "No DamageInfo");
 		--return;
 	end
 	
 	if enemy_context == nil then
-		customization_menu.status = "[enemy.on_notify_dead] No Enemy Context";
+		error_handler.report("enemy_handler.on_notify_dead", "No EnemyContext");
 		return;
 	end
 
@@ -512,7 +484,7 @@ end
 
 function this.on_release(enemy_context)
 	if enemy_context == nil then
-		customization_menu.status = "[enemy.on_release] No Enemy Context";
+		error_handler.report("enemy_handler.on_release", "No EnemyContext");
 		return;
 	end
 
@@ -528,6 +500,7 @@ function this.init_module()
 	player_handler = require("Health_Bars.player_handler");
 	gui_handler = require("Health_Bars.gui_handler");
 	time = require("Health_Bars.time");
+	error_handler = require("Health_Bars.error_handler");
 
 	sdk.hook(ch1_f6_z0_get_is_combat_ready_method, function(args)
 		local enemy_context = sdk.to_managed_object(args[2]);

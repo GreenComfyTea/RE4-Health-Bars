@@ -2,6 +2,7 @@ local this = {};
 
 local singletons;
 local customization_menu;
+local error_handler;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -49,14 +50,14 @@ local get_curr_active_input_level_method = gui_open_close_data_type_def:get_meth
 
 function this.update_is_cutscene(gui_manager)
 	if gui_manager == nil then
-		customization_menu.status = "[gui.update_is_cutscene] No GUI Manager";
+		error_handler.report("gui_handler.update_is_cutscene", "No GuiManager");
         return;
     end
 
 	local is_playing_event = get_is_playing_event_method:call(gui_manager);
 	
 	if is_playing_event == nil then
-		customization_menu.status = "[gui.update_is_cutscene] No IsPlayingEvent";
+		error_handler.report("gui_handler.update_is_cutscene", "No IsPlayingEvent");
         return;
 	end
 
@@ -65,14 +66,14 @@ end
 
 function this.update_is_hud_off(gui_manager)
 	if gui_manager == nil then
-		customization_menu.status = "[gui.update_is_hud_off] No GUI Manager";
+		error_handler.report("gui_handler.update_is_hud_off", "No GuiManager");
         return;
     end
 
 	local is_hud_off = get_is_hud_off_method:call(gui_manager);
 	
 	if is_hud_off == nil then
-		customization_menu.status = "[gui.update_is_hud_off] No IsHudOff";
+		error_handler.report("gui_handler.update_is_hud_off", "No IsHudOff");
         return;
 	end
 
@@ -81,21 +82,21 @@ end
 
 function this.update_current_input_level(gui_manager)
 	if gui_manager == nil then
-		customization_menu.status = "[gui.update_current_input_level] No GUI Manager";
+		error_handler.report("gui_handler.update_current_input_level", "No GuiManager");
         return;
     end
 
 	local gui_open_close_data = get_gui_open_close_data_method:call(gui_manager);
 	
 	if gui_open_close_data == nil then
-		customization_menu.status = "[gui.update_current_input_level] No GUI Open-Close Data";
+		error_handler.report("gui_handler.update_current_input_level", "No GuiOpenCloseData");
         return;
 	end
 
 	local current_active_input_level = get_curr_active_input_level_method:call(gui_open_close_data);
 	
 	if current_active_input_level == nil then
-		customization_menu.status = "[gui.update_current_input_level] No GUI Current Active Input Level";
+		error_handler.report("gui_handler.update_current_input_level", "No CurrentActiveInputLevel");
         return;
 	end
 
@@ -104,7 +105,7 @@ end
 
 function this.update()
     if singletons.gui_manager == nil then
-		customization_menu.status = "[gui.update] No GUI Manager";
+		error_handler.report("gui_handler.update", "No GuiManager");
         return;
     end
 
@@ -116,6 +117,7 @@ end
 function this.init_module()
 	singletons = require("Health_Bars.singletons");
 	customization_menu = require("Health_Bars.customization_menu");
+	error_handler = require("Health_Bars.error_handler");
 end
 
 return this;

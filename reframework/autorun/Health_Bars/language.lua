@@ -60,7 +60,6 @@ this.default_language = {
 
 		enabled = "Enabled",
 		reset_config = "Reset Config",
-		status = "Status",
 
 		menu_font_change_disclaimer = "Changing Language and Menu Font Size several times will cause a crash!",
 		language = "Language",
@@ -76,7 +75,6 @@ this.default_language = {
 
 		settings = "Settings",
 		use_d2d_renderer_if_available = "Use Direct2D Renderer if Available",
-		add_enemy_height_to_world_offset = "Add Enemy Height to World Offset",
 
 		render_during_cutscenes = "Render during Cutscenes",
 		render_when_hud_is_disabled_by_game = "Render when HUD is Disabled by Game",
@@ -144,7 +142,13 @@ this.default_language = {
 
 		colors = "Colors",
 		foreground = "Foreground",
-		background = "Background"
+		background = "Background",
+
+		debug = "Debug",
+		current_time = "Current Time",
+		everything_seems_to_be_ok = "Everything seems to be OK!",
+		history = "History",
+		history_size = "History Size"
 	}
 };
 

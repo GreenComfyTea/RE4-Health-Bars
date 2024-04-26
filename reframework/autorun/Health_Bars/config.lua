@@ -1,5 +1,5 @@
 local this = {};
-local version = "1.5";
+local version = "1.6";
 
 local utils;
 local language;
@@ -58,7 +58,6 @@ function this.init()
 
 		settings = {
 			use_d2d_if_available = true,
-			add_enemy_height_to_world_offset = true,
 
 			render_during_cutscenes = false,
 			render_when_hud_is_off = false,
@@ -92,7 +91,7 @@ function this.init()
 
 		world_offset = {
 			x = 0,
-			y = 0.2,
+			y = 0.35,
 			z = 0
 		},
 
@@ -156,6 +155,10 @@ function this.init()
 				background = 0xB9000000,
 				outline = 0xC0918E89
 			}
+		},
+
+		debug = {
+			history_size = 64
 		}
 	};
 end

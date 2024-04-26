@@ -35,6 +35,7 @@ local time = require("Health_Bars.time");
 local drawing = require("Health_Bars.drawing");
 local utils = require("Health_Bars.utils");
 local config = require("Health_Bars.config");
+local error_handler = require("Health_Bars.error_handler");
 local language = require("Health_Bars.language");
 local screen = require("Health_Bars.screen");
 local singletons = require("Health_Bars.singletons");
@@ -54,6 +55,7 @@ drawing.init_module();
 utils.init_module();
 language.init_module();
 config.init_module();
+error_handler.init_module();
 screen.init_module();
 singletons.init_module();
 
@@ -77,7 +79,7 @@ re.on_pre_application_entry("UpdateBehavior", function()
 	end
 
 	time.update_script_time();
-	singletons.init();
+	singletons.update();
 	screen.update_window_size();
 
 	gui_handler.update();
@@ -89,8 +91,6 @@ local function main_loop()
 	if not config.current_config.enabled then
 		return;
 	end
-
-	customization_menu.status = "OK";
 
 	enemy_handler.update_all_positions();
 	enemy_handler.draw_enemies();

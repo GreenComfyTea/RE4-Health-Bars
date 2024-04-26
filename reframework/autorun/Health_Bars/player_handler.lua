@@ -6,6 +6,7 @@ local config;
 local customization_menu;
 local enemy_handler;
 local time;
+local error_handler;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -61,13 +62,13 @@ local get_is_hud_off_method = gui_manager_type_def:get_method("get_IsHudOff");
 
 function this.update_position(player_context)
 	if player_context == nil then
-		customization_menu.status = "[player.update_position] No Player Context";
+		error_handler.report("player_handler.update_position", "No PlayerContext");
 		return;
 	end
 
 	local position = get_player_position_method:call(player_context);
 	if position == nil then
-		customization_menu.status = "[player.update_position] No Player Position";
+		error_handler.report("player_handler.update_position", "No Position");
 		return;
 	end
 
@@ -78,13 +79,13 @@ function this.update_is_aiming(player_context)
 	local cached_config = config.current_config.settings;
 
 	if player_context == nil then
-		customization_menu.status = "[player.update_is_aiming] No Player Context";
+		error_handler.report("player_handler.update_is_aiming", "No PlayerContext");
 		return;
 	end
 
 	local is_aiming = get_is_holding_method:call(player_context);
 	if is_aiming == nil then
-		customization_menu.status = "[player.update_is_aiming] No Player IsAiming";
+		error_handler.report("player_handler.update_is_aiming", "No IsAiming");
 		return;
 	end
 
@@ -101,7 +102,7 @@ function this.update_aim_target(player_context)
 	local cached_config = config.current_config.settings;
 
 	if player_context == nil then
-		customization_menu.status = "[player.update_aim_target] No Player Context";
+		error_handler.report("player_handler.update_aim_target", "No PlayerContext");
 		return;
 	end
 
@@ -114,7 +115,7 @@ function this.update_aim_target(player_context)
 
 	local target_enemy = enemy_handler.enemy_body_list[aim_target_body];
 	if target_enemy == nil then
-		customization_menu.status = "[player.update_aim_target] No Aim Target Enemy";
+		error_handler.report("player_handler.update_aim_target", "No AimTargetEnemy");
 		return;
 	end
 
@@ -133,19 +134,19 @@ end
 
 function this.update_is_using_scope(player_context)
 	if player_context == nil then
-		customization_menu.status = "[player.update_is_using_scope] No Player Context";
+		error_handler.report("player_handler.update_is_using_scope", "No PlayerContext");
 		return;
 	end
 
 	local camera_controller = get_camera_controller_method:call(player_context);
 	if camera_controller == nil then
-		customization_menu.status = "[player.update_is_using_scope] No Player Camera Controller";
+		error_handler.report("player_handler.update_is_using_scope", "No CameraController");
 		return;
 	end
 
 	local is_scope_camera = get_is_scope_camera_method:call(camera_controller);
 	if is_scope_camera == nil then
-		customization_menu.status = "[player.update_is_using_scope] No Player IsScopeCamera";
+		error_handler.report("player_handler.update_is_using_scope", "No IsScopeCamera");
 		return;
 	end
 
@@ -160,13 +161,13 @@ end
 
 function this.update()
     if singletons.character_manager == nil then
-		customization_menu.status = "[player.update] No Character Manager";
+		error_handler.report("player_handler.update", "No CharacterManager");
         return;
     end
 
 	local player_context = get_player_context_method:call(singletons.character_manager);
 	if player_context == nil then
-		customization_menu.status = "[player.update] No Player Context";
+		error_handler.report("player_handler.update", "No PlayerContext");
 		return;
 	end
 
@@ -183,6 +184,7 @@ function this.init_module()
 	customization_menu = require("Health_Bars.customization_menu");
 	enemy_handler = require("Health_Bars.enemy_handler");
 	time = require("Health_Bars.time");
+	error_handler = require("Health_Bars.error_handler");
 end
 
 return this;
