@@ -375,12 +375,7 @@ function this.draw_enemies()
 			goto continue;
 		end
 
-		local height_add = 0;
-		if cached_config.settings.add_enemy_height_to_world_offset then
-			height_add = enemy.height;
-		end
-
-		local world_offset = Vector3f.new(cached_config.world_offset.x, cached_config.world_offset.y + height_add, cached_config.world_offset.z);
+		local world_offset = Vector3f.new(cached_config.world_offset.x, cached_config.world_offset.y, cached_config.world_offset.z);
 
 		local position_on_screen = draw.world_to_screen(enemy.position + world_offset);
 		if position_on_screen == nil then
