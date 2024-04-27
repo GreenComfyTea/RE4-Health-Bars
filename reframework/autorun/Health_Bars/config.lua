@@ -152,7 +152,7 @@ function this.init()
 
 			colors = {
 				foreground = 0xB9A1FFBA,
-				background = 0xB9000000,
+				background = 0xB94C4B48,
 				outline = 0xC0918E89
 			}
 		},
