@@ -103,8 +103,7 @@ function this.draw()
 
 	imgui.push_font(this.font);
 
-	this.is_opened = imgui.begin_window(
-		cached_language.mod_name .. " v" .. config.current_config.version, this.is_opened, this.window_flags);
+	this.is_opened = imgui.begin_window(cached_language.mod_name .. " v" .. config.current_config.version, this.is_opened, this.window_flags);
 
 	if not this.is_opened then
 		imgui.pop_font();
