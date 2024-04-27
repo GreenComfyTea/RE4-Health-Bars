@@ -115,7 +115,7 @@ function this.update_aim_target(player_context)
 
 	local target_enemy = enemy_handler.enemy_body_list[aim_target_body];
 	if target_enemy == nil then
-		error_handler.report("player_handler.update_aim_target", "No AimTargetEnemy");
+		--error_handler.report("player_handler.update_aim_target", "No AimTargetEnemy");
 		return;
 	end
 
@@ -140,7 +140,7 @@ function this.update_is_using_scope(player_context)
 
 	local camera_controller = get_camera_controller_method:call(player_context);
 	if camera_controller == nil then
-		error_handler.report("player_handler.update_is_using_scope", "No CameraController");
+		-- error_handler.report("player_handler.update_is_using_scope", "No CameraController");
 		return;
 	end
 
@@ -167,7 +167,7 @@ function this.update()
 
 	local player_context = get_player_context_method:call(singletons.character_manager);
 	if player_context == nil then
-		error_handler.report("player_handler.update", "No PlayerContext");
+		-- error_handler.report("player_handler.update", "No PlayerContext");
 		return;
 	end
 
