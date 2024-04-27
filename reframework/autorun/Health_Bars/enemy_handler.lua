@@ -61,13 +61,19 @@ local get_body_game_object_method = enemy_base_context_type_def:get_method("get_
 local release_method = enemy_base_context_type_def:get_method("release");
 local get_is_lively_method = enemy_base_context_type_def:get_method("get_IsLively");
 
+local ch1_d6_z0_context_type_def = sdk.find_type_definition("chainsaw.Ch1d6z0Context");
+local ch1_d6_z0_get_is_lively_method = ch1_d6_z0_context_type_def:get_method("get_IsLively");
+
 local game_object_type_def = get_body_game_object_method:get_return_type();
 local get_transform_method = game_object_type_def:get_method("get_Transform");
 
 local transform_type_def = get_transform_method:get_return_type();
 local get_joint_by_name_method = transform_type_def:get_method("getJointByName");
+local get_joints_method = transform_type_def:get_method("get_Joints");
+
 
 local joint_type_def = get_joint_by_name_method:get_return_type();
+local get_name_method = joint_type_def:get_method("get_Name");
 local get_position_method = joint_type_def:get_method("get_Position");
 
 local hit_point_type_def = get_hit_point_method:get_return_type();
@@ -107,7 +113,6 @@ function this.new(enemy_context)
 
 	enemy.position = Vector3f.new(0, 0, 0);
 	enemy.distance = 0;
-	enemy.height = 0;
 
 	enemy.last_reset_time = 0;
 	enemy.last_update_time = 0;
@@ -277,16 +282,41 @@ function this.update_head_joint(enemy)
 		return;
 	end
 
-	local joint = get_joint_by_name_method:call(enemy_transform, "head")
+	local head_joint = get_joint_by_name_method:call(enemy_transform, "PlagaHead")
+	or get_joint_by_name_method:call(enemy_transform, "head")
 	or get_joint_by_name_method:call(enemy_transform, "Head")
 	or get_joint_by_name_method:call(enemy_transform, "root");
 
-	if joint == nil then
+	if head_joint == nil then
 		error_handler.report("enemy_handler.update_head_joint", "No Head Joint");
+
+		local joints = get_joints_method:call(enemy_transform);
+		if joints == nil then
+			error_handler.report("enemy_handler.update_head_joint", "No Joints");
+			return;
+		end
+
+		local all_joints_report = string.format("Health: %d/%d\n", enemy.health, enemy.max_health);
+
+		for i = 0, #joints - 1 do
+			local joint = joints[i];
+
+			local joint_name = get_name_method:call(joint);
+			if joint_name == nil then
+				error_handler.report("enemy_handler.update_head_joint", "No Joint Name");
+				goto continue;
+			end
+
+			all_joints_report = string.format("%s%s\n", all_joints_report, joint_name);
+			error_handler.report(string.format("All Joints for %s", tostring(enemy)), all_joints_report);
+
+			::continue::
+		end
+
 		return;
 	end
-
-	enemy.head_joint = joint;
+	
+	enemy.head_joint = head_joint;
 end
 
 function this.draw_enemies()
@@ -461,6 +491,8 @@ function this.on_notify_hit_damage(damage_info, enemy_context)
 end
 
 function this.on_notify_dead(damage_info, enemy_context)
+	local cached_config = config.current_config.settings;
+
 	if damage_info == nil then
 		error_handler.report("enemy_handler.on_notify_dead", "No DamageInfo");
 		--return;
@@ -475,6 +507,18 @@ function this.on_notify_dead(damage_info, enemy_context)
 
 	this.update_health(enemy);
 	enemy.is_live = false;
+
+	if cached_config.reset_time_duration_on_damage_dealt_for_everyone then
+		for enemy_context, enemy in pairs(this.enemy_list) do
+			if time.total_elapsed_script_seconds - enemy.last_reset_time < cached_config.time_duration then
+				this.update_last_reset_time(enemy);
+			end
+		end
+	end
+	
+	if cached_config.apply_time_duration_on_damage_dealt then
+		this.update_last_reset_time(enemy);
+	end
 end
 
 function this.on_release(enemy_context)
@@ -498,6 +542,13 @@ function this.init_module()
 	error_handler = require("Health_Bars.error_handler");
 
 	sdk.hook(ch1_f6_z0_get_is_combat_ready_method, function(args)
+		local enemy_context = sdk.to_managed_object(args[2]);
+		this.on_enemy_update(enemy_context);
+	end, function(retval)
+		return retval;
+	end);
+
+	sdk.hook(ch1_d6_z0_get_is_lively_method, function(args)
 		local enemy_context = sdk.to_managed_object(args[2]);
 		this.on_enemy_update(enemy_context);
 	end, function(retval)
