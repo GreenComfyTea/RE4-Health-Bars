@@ -118,11 +118,7 @@ re.on_draw_ui(function()
 end);
 
 re.on_frame(function()
-	if not reframework:is_drawing_ui() then
-		customization_menu.is_opened = false;
-	end
-
-	if customization_menu.is_opened then
+	if customization_menu.is_opened and reframework:is_drawing_ui() then
 		pcall(customization_menu.draw);
 	end
 end);
